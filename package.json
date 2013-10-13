@@ -1,0 +1,24 @@
+{
+  "name": "mongo-tv",
+  "version": "0.0.0",
+  "description": "A storage engine for your TV shows built over MongoDB GridFS. It also provides full text search capabilities to search into dialogs using subtitle files",
+  "main": "server.js",
+  "scripts": {
+    //"test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mcascallares/mongo-tv.git"
+  },
+  "keywords": [
+    "mongo",
+    "nodejs",
+    "gridfs",
+    "gridfs-stream"
+  ],
+  "author": "Matias Cascallares",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcascallares/mongo-tv/issues"
+  }
+}
