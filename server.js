@@ -1,15 +1,11 @@
 var express = require('express'),
-    mongoose = require('mongoose'),
     http = require('http'),
     path = require('path'),
+    db = require('./db')
     sitemap = require('./sitemap'),
     config = require('./config');
 
 
-console.log('Connecting to MongoDB');
-mongoose.connect(config.mongo.uri, {replSet: {socketOptions: {socketTimeoutMS: 200000}}});
-
-console.log('Initializing Express App');
 var app = express();
 
 // all environments
@@ -31,11 +27,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
+
 
 sitemap.addRoutes(app);
 
 http.createServer(app).listen(config.port, function(){
-  console.log('Express server listening on port ' + config.port);
+    console.log('Express server listening on port ' + config.port);
 });

@@ -7,6 +7,7 @@
     "express": "3.4.0",
     "jade": "*",
     "less-middleware": "*",
-    "mongoose": "~3.6.20"
+    "mongoose": "~3.6.20",
+    "gridfs-stream": "~0.4.0"
   }
 }

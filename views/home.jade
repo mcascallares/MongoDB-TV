@@ -13,7 +13,7 @@ block content
       a(data-toggle='modal', data-target='#newEpisodeDialog', class='btn btn-primary btn-lg') Or upload new episode
 
 
-block post
+block post-body
 
   .modal.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
     .modal-dialog
@@ -22,7 +22,11 @@ block post
           button(type='button', class='close', data-dismiss='modal', aria-hidden='true')×
           h4.modal-title Upload new episode
         .modal-body
-          div Here we put the content
+          div
+            form(action='/episodes/new', method='post', enctype='multipart/form-data')
+              input(type='file', name='episode')
+              button(type='submit', class='btn') Submit
+
         .modal-footer
           button(type='button', class='btn btn-success') Success
 
