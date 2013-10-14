@@ -6,7 +6,6 @@ lib-cov
 *.out
 *.pid
 *.gz
-*.css
  
 pids
 logs
@@ -14,3 +13,5 @@ results
  
 node_modules
 npm-debug.log
+
+public/stylesheets/style.css
