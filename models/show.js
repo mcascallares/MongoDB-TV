@@ -1,6 +1,5 @@
-var mongoose = require('mongoose')
-    , Schema = mongoose.Schema;
-
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 var showSchema = new Schema({
     name: { type: String, required: true},
@@ -12,14 +11,10 @@ var showSchema = new Schema({
     ]
 });
 
-
 // showSchema.index({name : 1});
+showSchema.statics.listNames = function(callback) {
+    this.find({}, '_id name', callback);
+};
 
-// labelSchema.statics.findByUser = function (user, callback) {
-//     this.find({ user: user })
-//     .sort('name')
-//     .exec(callback);
-// }
-
-
-exports.Show = mongoose.model('Show', showSchema, 'shows');
+var Show = mongoose.model('Show', showSchema, 'shows');
+module.exports = Show;

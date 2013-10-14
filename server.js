@@ -1,9 +1,10 @@
-var express = require('express'),
+var config = require('./config'),
+    db = require('./db'),
+    sitemap = require('./sitemap')
+    express = require('express'),
     http = require('http'),
-    path = require('path'),
-    db = require('./db')
-    sitemap = require('./sitemap'),
-    config = require('./config');
+    path = require('path');
+
 
 
 var app = express();
@@ -26,7 +27,7 @@ app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' == app.get('env')) {
+if ('development' === config.env) {
     app.use(express.errorHandler());
 }
 

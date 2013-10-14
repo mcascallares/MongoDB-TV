@@ -1,12 +1,11 @@
 var mongoose = require('mongoose'),
     Grid = require('gridfs-stream'),
-    fs = require('fs'),
-    conn = require('../db').conn;
+    fs = require('fs');
 
 var collection = 'episodes';
 
 exports.save = function(path, filename, metadata, onEnd, onError) {
-    gfs = Grid(conn.db, mongoose.mongo);
+    gfs = Grid(mongoose.connection.db, mongoose.mongo);
     var writestream = gfs.createWriteStream({
         root: collection,
         filename: filename,
