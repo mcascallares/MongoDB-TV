@@ -1,7 +1,47 @@
-doctype 5
-html
+!!! doctype 5
+html(lang='en')
+
   head
-    title= title
+    title mongo-TV
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', media='screen', href='/stylesheets/bootstrap.min.css')
+    style(type='text/css')
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
   body
-    block content
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+
+          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+
+          a.brand(href='#') mongo-TV
+
+          .nav-collapse.collapse
+            ul.nav
+              li.active
+                a(href='#') Home
+              li
+                a(href='#abour') About
+              li
+                a(href='#abour') Contact
+
+
+    .container
+      block content
+
+      footer
+        p &copy; Matias Cascallares 2013
+
+    script(src='/javascripts/jquery-2.0.3.min.js')
+    script(src='/javascripts/bootstrap.min.js')
