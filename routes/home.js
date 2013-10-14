@@ -5,5 +5,4 @@ exports.show = function(req, res) {
         if (err) return handleError(err);
         res.render('home', { shows: shows });
     });
-
 };

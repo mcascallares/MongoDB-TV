@@ -11,7 +11,7 @@ var showSchema = new Schema({
             _id: false,
             season: Number,
             number: Number,
-            video: Schema.ObjectId
+            video: String
         }
     ]
 });
@@ -38,17 +38,18 @@ showSchema.methods.addEpisode = function(season, number, path, callback) {
 
     var _this = this;
     var filename = this._id + '_' + season + '_' + number;
-    episode.save(path, filename, function(err, fileId) {
-        console.log('Succesfully saved the video, adding metadata to the show');
-        console.log(fileId);
-        var newEpisode = {
-            season: season,
-            number: number,
-            video: fileId
-        };
+    episode.save(path, filename, function(err) {
+        if (!err) {
+            console.log('Succesfully saved the video, adding metadata to the show');
+            var newEpisode = {
+                season: season,
+                number: number,
+                video: filename
+            };
 
-        _this.episodes.push(newEpisode);
-        _this.save(callback);
+            _this.episodes.push(newEpisode);
+            _this.save(callback);
+        }
     });
 };
 
