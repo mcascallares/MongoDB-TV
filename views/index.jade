@@ -1,5 +1,28 @@
 extends layout
 
 block content
-  h1= mongo-tv
-  p Welcome to mongo-tv
+
+  .row.text-center
+    input(type='text')
+    button Search
+
+  .row
+    div.span4
+      p Or watch latest..
+    div.span5
+      a(data-toggle='modal', data-target='#newEpisodeDialog', class='btn btn-primary btn-lg') Or upload new episode
+
+
+block endbody
+  .modal.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button(type='button', class='close', data-dismiss='modal', aria-hidden='true')×
+          h4.modal-title Upload new episode
+        .modal-body
+          div Here we put the content
+        .modal-footer
+          button(type='button', class='btn btn-success') Success
+
+
