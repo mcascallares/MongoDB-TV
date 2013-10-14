@@ -1,15 +1,15 @@
-var episode = require('../models/episode');
+var Show = require('../models/show').Show;
 
 exports.new = function(req, res) {
-    var path = req.files.episode.path;
-    var filename = req.files.episode.name;
+    Show.findById(req.body.show, function(err, show) {
 
-    episode.save(path, filename, {},
-        function() {
-            res.send('OK');
-        },
-        function() {
-            res.send('ERROR');
-        }
-    );
+        var season = req.body.season;
+        var episode = req.body.episode;
+        var path = req.files.video.path;
+
+        show.addEpisode(season, episode, path, function(err, fileId) {
+            if (err) throw err;
+            res.send(fileId);
+        });
+    });
 };

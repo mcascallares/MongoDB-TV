@@ -1,4 +1,4 @@
-var Show = require('../models/show');
+var Show = require('../models/show').Show;
 
 exports.show = function(req, res) {
     Show.listNames(function(err, shows) {

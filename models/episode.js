@@ -4,19 +4,20 @@ var mongoose = require('mongoose'),
 
 var collection = 'episodes';
 
-exports.save = function(path, filename, metadata, onEnd, onError) {
-    gfs = Grid(mongoose.connection.db, mongoose.mongo);
+exports.save = function(path, filename, callback) {
+    var gfs = Grid(mongoose.connection.db, mongoose.mongo);
+    var fileId = mongoose.Types.ObjectId();
     var writestream = gfs.createWriteStream({
+        _id: fileId,
         root: collection,
-        filename: filename,
-        metadata: metadata
+        filename: filename
     });
     fs.createReadStream(path)
-    .on('end', function() {
-        onEnd();
-    })
     .on('error', function() {
-        onError();
+        callback(true);
+    })
+    .on('close', function() {
+        callback(false, fileId);
     })
     .pipe(writestream);
 };

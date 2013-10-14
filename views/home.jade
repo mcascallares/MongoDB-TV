@@ -2,32 +2,52 @@ extends layout
 
 block content
 
-  .row.text-center
-    input(type='text')
-    button Search
+  .hero-unit.text-center
+    form(class='form-search')
+      input(type='text', name='q', class='input-big search-query')
+      button(type='submit',class='btn') Search
 
   .row
-    div.span4
+    div.span5.text-center
       p Or watch latest..
-    div.span5
+    div.span5.text-center
       a(data-toggle='modal', data-target='#newEpisodeDialog', class='btn btn-primary btn-lg') Or upload new episode
 
 
 block post-body
 
   .modal.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
-    .modal-dialog
-      .modal-content
-        .modal-header
-          button(type='button', class='close', data-dismiss='modal', aria-hidden='true')×
-          h4.modal-title Upload new episode
-        .modal-body
-          div
-            form(action='/episodes/new', method='post', enctype='multipart/form-data')
-              input(type='file', name='episode')
-              button(type='submit', class='btn') Submit
+    form(action='/episodes/new', method='post', enctype='multipart/form-data', class='form-horizontal')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button(type='button', class='close', data-dismiss='modal', aria-hidden='true')×
+            h4.modal-title Upload new episode
+          .modal-body
 
-        .modal-footer
-          button(type='button', class='btn btn-success') Success
+            .control-group
+              label(for='show', class='control-label') Show
+              .controls
+                select(name='show')
+                  for show in shows
+                    option(value='#{show.id}') #{show.name}
+
+            .control-group
+              label(for='season', class='control-label') Season
+              .controls
+                input(type='text', name='season')
+
+            .control-group
+              label(for='episode', class='control-label') Episode
+              .controls
+                input(type='text', name='episode')
+
+            .control-group
+              label(for='video', class='control-label') Video
+              .controls
+                input(type='file', name='video', placeholder='Episode')
+
+          .modal-footer
+            button(type='submit', class='btn btn-success') Submit
 
 
