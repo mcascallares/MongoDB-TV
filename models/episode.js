@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
 
 var collection = 'episodes';
 
+
 exports.save = function(path, filename, callback) {
     var gfs = Grid(mongoose.connection.db, mongoose.mongo);
     var fileId = mongoose.Types.ObjectId();
@@ -20,4 +21,15 @@ exports.save = function(path, filename, callback) {
         callback(false, fileId);
     })
     .pipe(writestream);
+};
+
+
+
+exports.load = function(fileId, callback) {
+    var gfs = Grid(mongoose.connection.db, mongoose.mongo);
+    var readstream = gfs.createReadStream({
+        _id: fileId,
+        root: collection
+    });
+    callback(readstream);
 };

@@ -3,5 +3,6 @@ var home = require('../routes/home'),
 
 exports.addRoutes = function(app, passport) {
     app.get('/', home.show);
-    app.post('/episodes/new', episode.new)
+    app.post('/episodes/new', episode.new);
+    app.get('/episodes/:id', episode.get)
 };

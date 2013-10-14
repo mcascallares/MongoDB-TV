@@ -5,8 +5,6 @@ var config = require('./config'),
     http = require('http'),
     path = require('path');
 
-
-
 var app = express();
 
 // all environments
@@ -15,9 +13,10 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.limit('500mb'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
+app.use(express.cookieParser(config.cookieSecret));
 app.use(express.session({
     secret: config.cookieSecret,
     maxAge: new Date(Date.now() + 3600000)
@@ -30,7 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' === config.env) {
     app.use(express.errorHandler());
 }
-
 
 sitemap.addRoutes(app);
 
