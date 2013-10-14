@@ -16,5 +16,5 @@ showSchema.statics.listNames = function(callback) {
     this.find({}, '_id name', callback);
 };
 
-var Show = mongoose.model('Show', showSchema, 'shows');
-module.exports = Show;
+
+module.exports = mongoose.model('Show', showSchema, 'shows');
