@@ -43,9 +43,14 @@ block post-body
                 input(type='text', name='episode')
 
             .control-group
-              label(for='video', class='control-label') Video
+              label(for='video', class='control-label') Video (.mp4 format)
               .controls
                 input(type='file', name='video', placeholder='Episode')
+
+            .control-group
+              label(for='subtitle', class='control-label') Subtitle (.srt format)
+              .controls
+                input(type='file', name='subtitle', placeholder='Episode')
 
           .modal-footer
             button(type='submit', class='btn btn-success') Submit

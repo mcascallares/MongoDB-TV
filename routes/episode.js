@@ -7,10 +7,11 @@ exports.create = function(req, res) {
     Show.findById(req.body.show, function(err, show) {
         var season = req.body.season;
         var episode = req.body.episode;
-        var path = req.files.video.path;
-        show.addEpisode(season, episode, path, function(err, fileId) {
+        var videoPath = req.files.video.path;
+        var subtitlePath = req.files.subtitle.path;
+        show.addEpisode(season, episode, videoPath, subtitlePath, function(show) {
             if (!err) {
-                res.send(fileId);
+                res.send(show);
             } else {
                 res.send("Error")
             }

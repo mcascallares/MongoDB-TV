@@ -9,6 +9,8 @@
     "less-middleware": "*",
     "mongoose": "~3.6.20",
     "gridfs-stream": "~0.4.0",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "mongoose-text-search": "0.0.2",
+    "srt": "0.0.3"
   }
 }
