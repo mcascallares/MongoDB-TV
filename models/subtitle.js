@@ -27,10 +27,10 @@ subtitleSchema.index({ 'content.text' : 'text'});
 
 
 subtitleSchema.methods.parseContent = function(srtPath, callback) {
-    var encoding = 'ascii';
-    srtString = fs.readFileSync(srtPath, encoding);
-    srtString = srtString.replace(/\r\n/g, '\n'); // sanitize for srt library
-    console.log(srtString);
+    srtString = fs.readFileSync(srtPath, 'utf8');
+    srtString = srtString.replace(/\r\n/g, '\n');
+    srtString = srtString.replace(/<\/?[^>]+(>|$)/g, '');
+    srtString = srtString.replace(/\{\/?[^\}]+(\}|$)/g, '');
     var data = srt.fromString(srtString);
 
     var content = _.map(data, function(subtitle) {
