@@ -4,12 +4,14 @@ var show = {
     episodes: [
         {
             _id: ObjectId('abcdef1234');
+            created: Date(),
             season: 4,
             number: 3,
             video: "filename1.mp4",
         },
         {
             _id: ObjectId('abcdef125');
+            created: Date(),
             season: 4,
             number: 5,
             video: "filename2.mp4",

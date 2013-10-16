@@ -11,15 +11,16 @@ var showSchema = new Schema({
         {
             season: Number,
             number: Number,
-            video: String
+            video: String,
+            created: Date
         }
     ]
 });
 
 
-// indexes
 showSchema.index({ 'name' : 1}, { '_id' : 1}); // covered queries when retrieving show names
-showSchema.index({ 'episodes._id' : 1,});
+showSchema.index({ 'updated' : 1});
+showSchema.index({ 'episodes._id' : 1});
 showSchema.index({ 'episodes.season' : 1, 'episodes.number': 1});
 
 
@@ -46,6 +47,7 @@ showSchema.methods.addEpisode = function(season, number, videoPath, subtitlePath
     episode.save(videoPath, filename, function() {
         console.log('Succesfully saved the video, adding metadata to the show');
         var newEpisode = {
+            created: new Date(),
             season: season,
             number: number,
             video: filename
