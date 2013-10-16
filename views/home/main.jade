@@ -3,15 +3,19 @@ extends ../layout
 block content
 
   .row
-    .jumbotron
-      form(action='/subtitles/search', class='form-search')
-        input(type='text', name='q', class='input-big search-query')
-        button(type='submit',class='btn') Search
+    .jumbotron.text-center
+      h3 Search for any quote!
+
+      form(action='/subtitles/search')
+        input.form-control(type='search', name='q')
+        button.btn.btn-default(type='submit') Search &nbsp;
+          span.input-group-button.glyphicon.glyphicon-search
+
 
   .row
     .col-md-6
       p Or watch latest..
-    .col-md-6
+    .col-md-6.text-center
       a(data-toggle='modal', href='#newEpisodeDialog', class='btn btn-primary btn-lg') Or upload new episode
 
 
@@ -55,7 +59,7 @@ block post-body
                 input.form-control(type='file', name='subtitle', placeholder='Episode', required)
 
           .modal-footer
-            button(type='submit', class='btn btn-default') Submit
+            button(type='submit', class='btn btn-primary') Submit
 
 
 block post-script
