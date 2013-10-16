@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
 
@@ -16,10 +16,10 @@ block content
 
 block post-body
 
-  .modal.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
-    form(action='/episodes/new', method='post', enctype='multipart/form-data', class='form-horizontal')
-      .modal-dialog
-        .modal-content
+  .modal.hide.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        form(action='/episodes/new', method='post', enctype='multipart/form-data', class='form-horizontal')
           .modal-header
             button(type='button', class='close', data-dismiss='modal', aria-hidden='true')×
             h4.modal-title Upload new episode
