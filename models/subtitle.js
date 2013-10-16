@@ -27,6 +27,9 @@ subtitleSchema.plugin(textSearch);
 subtitleSchema.index({ 'episode_id' : 1 });
 subtitleSchema.index({ 'content.text' : 'text'});
 
+subtitleSchema.statics.search = function(q, callback) {
+    this.textSearch(q, callback);
+};
 
 subtitleSchema.methods.parseContent = function(srtPath, callback) {
     var buffer = fs.readFileSync(srtPath);

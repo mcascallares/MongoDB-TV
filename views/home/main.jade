@@ -3,7 +3,7 @@ extends ../layout
 block content
 
   .hero-unit.text-center
-    form(class='form-search')
+    form(action='/subtitles/search', class='form-search')
       input(type='text', name='q', class='input-big search-query')
       button(type='submit',class='btn') Search
 
