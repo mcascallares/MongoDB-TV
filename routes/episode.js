@@ -21,23 +21,27 @@ exports.create = function(req, res) {
 
 
 exports.show = function(req, res) {
-    videoUrl = 'http://localhost:3000/episodes/raw/' + req.params.video;
+    videoUrl = 'http://localhost:3000/episodes/raw/' + req.params.video; // TODO hardcoded URL
     res.render('episode/show', { videoUrl: videoUrl });
 };
 
 
 exports.get = function(req, res) {
     var filename = req.params.video;
-    episode.load(filename, function(metadata, stream) {
-        res.status(200);
-        res.set({
-            'Accept-Ranges': 'bytes',
-            'Content-Type': 'video/mp4', // TODO hardcoded
-            'Content-Length': metadata.length,
-            'Etag': metadata.md5,
-            'Last-Modified': metadata.uploadDate
-        });
-        stream.pipe(res);
-        // TODO not found? 404?
+    episode.load(filename, function(err, metadata, stream) {
+        if (err) { next(err); }
+        if (metadata && stream) {
+            res.status(200);
+            res.set({
+                'Accept-Ranges': 'bytes',
+                'Content-Type': 'video/mp4', // TODO hardcoded
+                'Content-Length': metadata.length,
+                'Etag': metadata.md5,
+                'Last-Modified': metadata.uploadDate
+            });
+            stream.pipe(res);
+        } else {
+            res.status(404).send('Not found');
+        }
     });
 };

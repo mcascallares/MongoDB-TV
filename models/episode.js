@@ -27,16 +27,23 @@ exports.save = function(path, filename, callback) {
 
 exports.load = function(filename, callback) {
     var gfs = Grid(mongoose.connection.db, mongoose.mongo);
-    var metadata = null;
-
     gfs.collection(collection).find({filename:filename}).toArray(function (err, files) {
-        metadata = files[0];
-        var options = {
-            filename: filename,
-            root: collection
-        };
-        var readstream = gfs.createReadStream(options);
-        callback(metadata, readstream);
+        if (err) {
+            console.log(err);
+            callback(new Error('An error occurred when retrieving video from MongoDB'));
+        }
+
+        if (files && files.length > 0) {
+            var metadata = files[0];
+            var options = {
+                filename: filename,
+                root: collection
+            };
+            var readstream = gfs.createReadStream(options);
+            callback(null, metadata, readstream);
+        } else {
+            callback(null, null, null);
+        }
     })
 
 };
