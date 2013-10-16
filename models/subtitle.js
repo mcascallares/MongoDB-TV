@@ -3,6 +3,8 @@ var fs = require('fs'),
     Schema = mongoose.Schema,
     textSearch = require('mongoose-text-search'),
     srt = require("srt"),
+    jschardet = require("jschardet"),
+    iconv = require('iconv-lite'),
     _ = require('underscore');
 
 
@@ -27,22 +29,21 @@ subtitleSchema.index({ 'content.text' : 'text'});
 
 
 subtitleSchema.methods.parseContent = function(srtPath, callback) {
-    srtString = fs.readFileSync(srtPath, 'utf8');
-    srtString = srtString.replace(/\r\n/g, '\n');
-    srtString = srtString.replace(/<\/?[^>]+(>|$)/g, '');
-    srtString = srtString.replace(/\{\/?[^\}]+(\}|$)/g, '');
+    var buffer = fs.readFileSync(srtPath);
+    var originalEncoding = jschardet.detect(buffer);
+    srtString = iconv.decode(buffer, originalEncoding.encoding);
+    srtString = srtString.replace(/\r\n/g, '\n'); // fix windows mess
+    srtString = srtString.replace(/<\/?[^>]+(>|$)/g, ''); // remove tags for italics, bold, etc
+    srtString = srtString.replace(/\{\/?[^\}]+(\}|$)/g, ''); // remove bracket notation for tags
     var data = srt.fromString(srtString);
 
-    var content = _.map(data, function(subtitle) {
+    this.content = _.map(data, function(subtitle) {
         return {
             start: subtitle.startTime,
             end: subtitle.endTime,
-            text: subtitle.text
+            text: subtitle.text.replace(/\n/g, ' ')
         };
     });
-
-    this.content = content;
-
 };
 
 
