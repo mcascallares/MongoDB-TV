@@ -20,12 +20,6 @@ exports.create = function(req, res) {
 };
 
 
-exports.show = function(req, res) {
-    videoUrl = 'http://localhost:3000/episodes/raw/' + req.params.video; // TODO hardcoded URL
-    res.render('episode/show', { videoUrl: videoUrl });
-};
-
-
 exports.get = function(req, res) {
     var filename = req.params.video;
     episode.load(filename, function(err, metadata, stream) {

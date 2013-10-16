@@ -9,10 +9,11 @@ var showSchema = new Schema({
     name: { type: String, required: true},
     episodes: [
         {
-            season: Number,
-            number: Number,
-            video: String,
-            created: Date
+            _id: false,
+            season: { type: Number, required: true},
+            number: { type: Number, required: true},
+            video: { type: String, required: true},
+            created: { type: Date, required: true},
         }
     ]
 });
@@ -73,7 +74,7 @@ showSchema.methods.addEpisode = function(season, number, videoPath, subtitlePath
             // contains text and times, I need to extend it with the episode id
             var texts = Subtitle.parseContent(subtitlePath);
             var toInsert = _.map(texts, function(t) {
-                return _.extend({ season: season, number: number, show: _this.name}, t)
+                return _.extend({ season: season, number: number, show: _this.name, video: filename}, t)
             });
 
             Subtitle.create(toInsert, function(err) {

@@ -3,14 +3,12 @@ var show = {
     name: "Friends",
     episodes: [
         {
-            _id: ObjectId('abcdef1234');
             created: Date(),
             season: 4,
             number: 3,
             video: "filename1.mp4",
         },
         {
-            _id: ObjectId('abcdef125');
             created: Date(),
             season: 4,
             number: 5,
@@ -22,10 +20,15 @@ var show = {
 
 var subtitle = {
     _id: ObjectId('12abdf2233'),
-    episode: ObjectId('1298237abcdf'),
     start: 1234,
     end: 1250,
-    text: 'What are you doing'}
+    text: 'What are you doing',
+
+    // denormalized info to show in text searches
+    show: 'Breaking Bad',
+    season: 1,
+    number: 3,
+    video: 'filename3.mp3',
 }
 
 
