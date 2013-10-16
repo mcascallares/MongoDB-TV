@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "mongo-tv",
   "version": "0.0.1",
   "private": true,
   "main": "server.js",
