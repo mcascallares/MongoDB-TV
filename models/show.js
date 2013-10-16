@@ -69,15 +69,15 @@ showSchema.methods.addEpisode = function(season, number, videoPath, subtitlePath
             }
 
             console.log('Succesfully saved show metadata, adding subtitle');
-
             var inserted = savedShow.getEpisode(season, number);
-            console.log(inserted);
 
-            subtitle = new Subtitle({ episode: inserted._id});
-            subtitle.parseContent(subtitlePath);
-            console.log('presave');
-            console.log(subtitle);
-            subtitle.save(function(err, data) {
+            // contains text and times, I need to extend it with the episode id
+            var texts = Subtitle.parseContent(subtitlePath);
+            var toInsert = _.map(texts, function(t) {
+                return _.extend({ episode: inserted._id}, t)
+            });
+
+            Subtitle.create(toInsert, function(err) {
                 if (err) {
                     throw new Error('An error occurred when saving the subtitle');
                 }

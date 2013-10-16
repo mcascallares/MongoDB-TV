@@ -11,27 +11,25 @@ var fs = require('fs'),
 
 var subtitleSchema = new Schema({
     episode: Schema.Types.ObjectId,
-    content: [
-        {
-            start: Number,
-            end: Number,
-            text: String
-        }
-    ]
+    start: Number,
+    end: Number,
+    text: String
 });
 
 // give our schema text search capabilities
 subtitleSchema.plugin(textSearch);
 
 // indexes
-subtitleSchema.index({ 'episode_id' : 1 });
-subtitleSchema.index({ 'content.text' : 'text'});
+subtitleSchema.index({ 'text' : 'text'});
 
 subtitleSchema.statics.search = function(q, callback) {
+    var options = {
+        project: '$elemMatch'
+    };
     this.textSearch(q, callback);
 };
 
-subtitleSchema.methods.parseContent = function(srtPath, callback) {
+subtitleSchema.statics.parseContent = function(srtPath, callback) {
     var buffer = fs.readFileSync(srtPath);
     var originalEncoding = jschardet.detect(buffer);
     srtString = iconv.decode(buffer, originalEncoding.encoding);
@@ -40,7 +38,7 @@ subtitleSchema.methods.parseContent = function(srtPath, callback) {
     srtString = srtString.replace(/\{\/?[^\}]+(\}|$)/g, ''); // remove bracket notation for tags
     var data = srt.fromString(srtString);
 
-    this.content = _.map(data, function(subtitle) {
+    return _.map(data, function(subtitle) {
         return {
             start: subtitle.startTime,
             end: subtitle.endTime,

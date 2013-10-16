@@ -23,10 +23,9 @@ var show = {
 var subtitle = {
     _id: ObjectId('12abdf2233'),
     episode: ObjectId('1298237abcdf'),
-    content: [
-        {start: 1234, end: 1250, text: 'What are you doing'},
-        {start: 1252, end: 1254, text: 'Nothing!'}
-    ]
+    start: 1234,
+    end: 1250,
+    text: 'What are you doing'}
 }
 
 

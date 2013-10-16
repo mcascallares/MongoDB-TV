@@ -11,9 +11,9 @@ exports.create = function(req, res) {
         var subtitlePath = req.files.subtitle.path;
         show.addEpisode(season, episode, videoPath, subtitlePath, function(show) {
             if (!err) {
-                res.send(show);
+                res.redirect('/');
             } else {
-                res.send("Error")
+                res.send(err);
             }
         });
     });
