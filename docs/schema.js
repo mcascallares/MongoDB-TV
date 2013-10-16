@@ -27,5 +27,3 @@ var subtitle = {
     end: 1250,
     text: 'What are you doing?'
 }
-
-

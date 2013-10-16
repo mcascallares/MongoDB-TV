@@ -15,15 +15,12 @@ var toStrTime = function(timestamp) {
 
 exports.search = function(req, res) {
     Subtitle.search(req.query.q, function(err, textResults) {
-        console.log('---- textResults -----');
-        console.log(textResults);
         if (err) { next(err); }
 
         var episodeIds = _.map(textResults.results, function(r) {
             return r.obj.episode.toString();
         });
         var episodeIds = _.uniq(episodeIds);
-
 
         Show.findByEpisodes(episodeIds, function(err, shows) {
             var showsByEpisode = {}; //cache scheme episodeId -> showObject
@@ -54,7 +51,5 @@ exports.search = function(req, res) {
             }
             res.render('subtitle/result', ret);
         });
-        var showsByEpisode = {};
-
     });
 };
