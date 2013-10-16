@@ -28,7 +28,7 @@ exports.get = function(req, res) {
             res.status(200);
             res.set({
                 'Accept-Ranges': 'bytes',
-                'Content-Type': 'video/mp4', // TODO hardcoded
+                'Content-Type': metadata.metadata.contentType,
                 'Content-Length': metadata.length,
                 'Etag': metadata.md5,
                 'Last-Modified': metadata.uploadDate

@@ -13,6 +13,7 @@
     "mongoose-text-search": "0.0.2",
     "srt": "0.0.3",
     "jschardet": "~1.1.0",
-    "iconv-lite": "~0.2.11"
+    "iconv-lite": "~0.2.11",
+    "mime": "~1.2.11"
   }
 }

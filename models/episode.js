@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
     Grid = require('gridfs-stream'),
+    mime = require('mime'),
     fs = require('fs');
 
 var chunkSize = 8 * 1024 * 1024; // 8 megs
@@ -11,7 +12,8 @@ exports.save = function(path, filename, callback) {
     var writestream = gfs.createWriteStream({
         root: collection,
         filename: filename,
-        chunkSize: chunkSize
+        chunkSize: chunkSize,
+        metadata: {contentType: mime.lookup(path)}, // setting in the root is not working
     });
     fs.createReadStream(path)
     .on('error', function() {
@@ -22,7 +24,6 @@ exports.save = function(path, filename, callback) {
     })
     .pipe(writestream);
 };
-
 
 
 exports.load = function(filename, callback) {
@@ -45,5 +46,4 @@ exports.load = function(filename, callback) {
             callback(null, null, null);
         }
     })
-
 };
