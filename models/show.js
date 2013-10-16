@@ -51,7 +51,6 @@ showSchema.methods.addEpisode = function(season, number, videoPath, subtitlePath
     if (this.getEpisode(season, number)) {
         throw new Error('That episode is already in the system');
     }
-
     var _this = this;
     var filename = this._id + '_' + season + '_' + number;
     episode.save(videoPath, filename, function() {
@@ -74,7 +73,7 @@ showSchema.methods.addEpisode = function(season, number, videoPath, subtitlePath
             // contains text and times, I need to extend it with the episode id
             var texts = Subtitle.parseContent(subtitlePath);
             var toInsert = _.map(texts, function(t) {
-                return _.extend({ episode: inserted._id}, t)
+                return _.extend({ season: season, number: number, show: _this.name}, t)
             });
 
             Subtitle.create(toInsert, function(err) {

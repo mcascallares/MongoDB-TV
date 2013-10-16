@@ -47,12 +47,12 @@ block post-body
             .form-group
               label.control-label.col-lg-2(for='season') Season
               .col-lg-10
-                input.form-control(type='text', name='season', required)
+                input.form-control(type='number', min='0', name='season', required)
 
             .form-group
               label.control-label.col-lg-2(for='episode') Episode
               .col-lg-10
-                input.form-control(type='text', name='episode', required)
+                input.form-control(type='number', min='0', name='episode', required)
 
             .form-group
               label.control-label.col-lg-2(for='video') Video (.mp4 format)
@@ -69,5 +69,5 @@ block post-body
 
 
 block post-script
-script(type='text/javascript')
+script(type='text/javascript').
     $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );

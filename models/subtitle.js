@@ -8,26 +8,25 @@ var fs = require('fs'),
     _ = require('underscore');
 
 
-
 var subtitleSchema = new Schema({
-    episode: Schema.Types.ObjectId,
+    show: String,
+    season: Number,
+    number: Number,
     start: Number,
     end: Number,
     text: String
 });
 
+
 // give our schema text search capabilities
 subtitleSchema.plugin(textSearch);
+subtitleSchema.index({text : 'text'});
 
-// indexes
-subtitleSchema.index({ 'text' : 'text'});
 
 subtitleSchema.statics.search = function(q, callback) {
-    var options = {
-        project: '$elemMatch'
-    };
     this.textSearch(q, callback);
 };
+
 
 subtitleSchema.statics.parseContent = function(srtPath, callback) {
     var buffer = fs.readFileSync(srtPath);

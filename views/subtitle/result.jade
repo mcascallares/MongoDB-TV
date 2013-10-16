@@ -2,4 +2,20 @@ extends ../layout
 
 block content
 
-    #{result.stats.n}
+  .row.text-right
+    p
+      h3 #{stats.n} results (#{stats.timeMicros / 1000000} seconds)
+
+  .row
+    for result in results
+      .row
+        .col-md-2.text-right
+          p #{result.obj.show}
+
+        .col-md-8
+          blockquote
+            p
+              em "#{result.obj.text}"
+            small Someone famous in episode #{result.obj.number} of season #{result.obj.season}
+
+        .col-md-2 #{result.obj.start}-#{result.obj.end}
