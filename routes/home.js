@@ -1,8 +1,13 @@
 var Show = require('../models/show').Show;
 
 exports.show = function(req, res) {
-    Show.listNames(function(err, shows) {
-        if (err) return handleError(err);
-        res.render('home/main', { shows: shows });
+    var latestEpisodesLimit = 5;
+    Show.listNames(function(errShows, shows) {
+        if (errShows) { next(errShows) };
+        Show.latests(latestEpisodesLimit, function(errLatests, latests) {
+            if (errLatests) { next(errLatests) };
+            console.log(latests);
+            res.render('home/main', { shows: shows, latests: latests });
+        })
     });
 };

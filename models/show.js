@@ -19,13 +19,23 @@ var showSchema = new Schema({
 
 
 showSchema.index({ 'name' : 1}, { '_id' : 1}); // covered queries when retrieving show names
-showSchema.index({ 'updated' : 1});
 showSchema.index({ 'episodes._id' : 1});
+showSchema.index({ 'episodes.created' : 1});
 showSchema.index({ 'episodes.season' : 1, 'episodes.number': 1});
 
 
 showSchema.statics.listNames = function(callback) {
     this.find({}, '_id name').sort('name').exec(callback);
+};
+
+
+showSchema.statics.latests = function(limit, callback) {
+    this.aggregate([
+        { $unwind: '$episodes'},
+        { $sort: {'episodes.created': -1}},
+        { $limit: limit},
+        { $project: {'_id': 1, 'name': 1, 'created': '$episodes.created', 'episode': '$episodes.number', 'season': '$episodes.season'}}
+    ], callback);
 };
 
 

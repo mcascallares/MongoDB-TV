@@ -5,7 +5,6 @@ block content
   .row
     .jumbotron.text-center
       h3 Search for any quote!
-
       form(action='/subtitles/search')
         input.form-control(type='search', name='q')
         button.btn.btn-default(type='submit') Search &nbsp;
@@ -13,10 +12,17 @@ block content
 
 
   .row
-    .col-md-6
-      p Or watch latest..
     .col-md-6.text-center
-      a(data-toggle='modal', href='#newEpisodeDialog', class='btn btn-primary btn-lg') Or upload new episode
+      h4 Last episodes uploaded
+      dl.dl-horizontal
+        for last in latests
+          dt #{last.name}
+          dd Season #{last.season} Episode #{last.episode} &nbsp;
+            span.label.label-success New
+
+    .col-md-6.text-center
+      h4 New upload
+      a(data-toggle='modal', href='#newEpisodeDialog', class='btn btn-primary btn-lg') I have a new episode
 
 
 block post-body
