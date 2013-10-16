@@ -6,40 +6,29 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', media='screen', href='/stylesheets/bootstrap.min.css')
-    style(type='text/css').
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
+    link(rel='stylesheet', media='screen', href='/stylesheets/bootstrap-theme.min.css')
+
 
   body
-    .navbar.navbar-inverse.navbar-fixed-top
-      .navbar-inner
-        .container
+    nav.navbar.navbar-inverse.navbar-static-top(role='navigation')
+      .navbar-header
+        button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href='#') mongo-TVx
+      .collapse.navbar-collapse.navbar-ex1-collapse
+        ul.nav.navbar-nav
+          li.active
+            a(href='#') About
+          li.active
+            a(href='#') Contact
 
-          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-
-          a.brand(href='#') mongo-TV
-
-          .nav-collapse.collapse
-            ul.nav
-              li.active
-                a(href='#') Home
-              li
-                a(href='#abour') About
-              li
-                a(href='#abour') Contact
 
     .container
-      .row
-        .span10.offset1
-            block content
+      block content
+
 
     block post-body
 

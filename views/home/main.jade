@@ -2,59 +2,60 @@ extends ../layout
 
 block content
 
-  .hero-unit.text-center
-    form(action='/subtitles/search', class='form-search')
-      input(type='text', name='q', class='input-big search-query')
-      button(type='submit',class='btn') Search
+  .row
+    .jumbotron
+      form(action='/subtitles/search', class='form-search')
+        input(type='text', name='q', class='input-big search-query')
+        button(type='submit',class='btn') Search
 
   .row
-    div.span5.text-center
+    .col-md-6
       p Or watch latest..
-    div.span5.text-center
-      a(data-toggle='modal', data-target='#newEpisodeDialog', class='btn btn-primary btn-lg') Or upload new episode
+    .col-md-6
+      a(data-toggle='modal', href='#newEpisodeDialog', class='btn btn-primary btn-lg') Or upload new episode
 
 
 block post-body
 
-  .modal.hide.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
+  .modal.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
     .modal-dialog
       .modal-content
-        form(action='/episodes/new', method='post', enctype='multipart/form-data', class='form-horizontal')
+        form(action='/episodes/new', method='post', enctype='multipart/form-data', class='form-horizontal', role='form')
           .modal-header
             button(type='button', class='close', data-dismiss='modal', aria-hidden='true')×
             h4.modal-title Upload new episode
-          .modal-body
 
-            .control-group
-              label(for='show', class='control-label') Show
-              .controls
-                select(name='show', required)
+          .modal-body
+            .form-group
+              label(for='show', class='control-label, col-lg-2') Show
+              .col-lg-10
+                select.form-control(name='show', required)
                   option(value='') Pick a show
                   for show in shows
                     option(value='#{show.id}') #{show.name}
 
-            .control-group
-              label(for='season', class='control-label') Season
-              .controls
-                input(type='text', name='season', required)
+            .form-group
+              label.control-label.col-lg-2(for='season') Season
+              .col-lg-10
+                input.form-control(type='text', name='season', required)
 
-            .control-group
-              label(for='episode', class='control-label') Episode
-              .controls
-                input(type='text', name='episode', required)
+            .form-group
+              label.control-label.col-lg-2(for='episode') Episode
+              .col-lg-10
+                input.form-control(type='text', name='episode', required)
 
-            .control-group
-              label(for='video', class='control-label') Video (.mp4 format)
-              .controls
-                input(type='file', name='video', placeholder='Episode', required)
+            .form-group
+              label.control-label.col-lg-2(for='video') Video (.mp4 format)
+              .col-lg-10
+                input.form-control(type='file', name='video', placeholder='Episode', required)
 
-            .control-group
-              label(for='subtitle', class='control-label') Subtitle (.srt format)
-              .controls
-                input(type='file', name='subtitle', placeholder='Episode', required)
+            .form-group
+              label.control-label.col-lg-2(for='subtitle') Subtitle (.srt format)
+              .col-lg-10
+                input.form-control(type='file', name='subtitle', placeholder='Episode', required)
 
           .modal-footer
-            button(type='submit', class='btn btn-success') Submit
+            button(type='submit', class='btn btn-default') Submit
 
 
 block post-script
