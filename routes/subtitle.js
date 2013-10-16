@@ -1,4 +1,5 @@
-var Subtitle = require('../models/subtitle').Subtitle,
+ var Show = require('../models/show').Show,
+    Subtitle = require('../models/subtitle').Subtitle,
     sitemap = require('../sitemap'),
     _ = require('underscore');
 
@@ -11,25 +12,49 @@ var toStrTime = function(timestamp) {
     return (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
 };
 
+
 exports.search = function(req, res) {
-    var q = req.query.q;
-    Subtitle.search(q, function(err, ret) {
+    Subtitle.search(req.query.q, function(err, textResults) {
+        console.log('---- textResults -----');
+        console.log(textResults);
         if (err) { next(err); }
 
-        console.log(ret);
-        res.render('subtitle/result', {
-            results: _.map(ret.results, function(r) {
-                return {
-                    score: r.score,
-                    show: r.obj.show,
-                    season: r.obj.season,
-                    number: r.obj.number,
-                    time: toStrTime(r.obj.start),
-                    text: r.obj.text,
-                    link: sitemap.episodeRawUrl(r.obj.video)
+        var episodeIds = _.map(textResults.results, function(r) {
+            return r.obj.episode.toString();
+        });
+        var episodeIds = _.uniq(episodeIds);
+
+
+        Show.findByEpisodes(episodeIds, function(err, shows) {
+            var showsByEpisode = {}; //cache scheme episodeId -> showObject
+            for (var i = 0; i < shows.length; i++) {
+                var currentShow = shows[i];
+                for (var j = 0; j < currentShow.episodes.length; j++) {
+                    var currentEpisode = currentShow.episodes[j];
+                    showsByEpisode[currentEpisode._id.toString()] = currentShow;
                 }
-            }),
-            stats: ret.stats
-        })
-    })
+            }
+
+            console.log('----- cache --------');
+            console.log(showsByEpisode);
+
+            var ret = { stats: textResults.stats, results: [] };
+            for (var i = 0; i < textResults.results.length; i++) {
+                var current = textResults.results[i];
+                var s = showsByEpisode[current.obj.episode.toString()];
+                ret.results.push({
+                    score: current.score,
+                    show: s.name,
+                    season: s.episodes[0].season,
+                    number: s.episodes[0].number,
+                    time: toStrTime(current.obj.start),
+                    text: current.obj.text,
+                    link: sitemap.episodeRawUrl(s.episodes[0].video)
+                });
+            }
+            res.render('subtitle/result', ret);
+        });
+        var showsByEpisode = {};
+
+    });
 };

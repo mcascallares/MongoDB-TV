@@ -9,10 +9,7 @@ var fs = require('fs'),
 
 
 var subtitleSchema = new Schema({
-    show: { type: String, required: true},
-    season: { type: Number, required: true},
-    number: { type: Number, required: true},
-    video: { type: String, required: true},
+    episode: { type: Schema.Types.ObjectId, required: true},
     start: { type: Number, required: true},
     end: { type: Number, required: true},
     text: String
