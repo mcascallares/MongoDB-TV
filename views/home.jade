@@ -28,29 +28,35 @@ block post-body
             .control-group
               label(for='show', class='control-label') Show
               .controls
-                select(name='show')
+                select(name='show', required)
+                  option(value='') Pick a show
                   for show in shows
                     option(value='#{show.id}') #{show.name}
 
             .control-group
               label(for='season', class='control-label') Season
               .controls
-                input(type='text', name='season')
+                input(type='text', name='season', required)
 
             .control-group
               label(for='episode', class='control-label') Episode
               .controls
-                input(type='text', name='episode')
+                input(type='text', name='episode', required)
 
             .control-group
               label(for='video', class='control-label') Video (.mp4 format)
               .controls
-                input(type='file', name='video', placeholder='Episode')
+                input(type='file', name='video', placeholder='Episode', required)
 
             .control-group
               label(for='subtitle', class='control-label') Subtitle (.srt format)
               .controls
-                input(type='file', name='subtitle', placeholder='Episode')
+                input(type='file', name='subtitle', placeholder='Episode', required)
 
           .modal-footer
             button(type='submit', class='btn btn-success') Submit
+
+
+block post-script
+script(type='text/javascript')
+    $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
