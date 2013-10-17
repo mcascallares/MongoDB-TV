@@ -25,47 +25,47 @@ block content
       a(data-toggle='modal', href='#newEpisodeDialog', class='btn btn-primary btn-lg') I have a new episode
 
 
-block post-body
 
-  .modal.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
-    .modal-dialog
-      .modal-content
-        form(action='/episodes/new', method='post', enctype='multipart/form-data', class='form-horizontal', role='form')
-          .modal-header
-            button(type='button', class='close', data-dismiss='modal', aria-hidden='true')×
-            h4.modal-title Upload new episode
 
-          .modal-body
-            .form-group
-              label(for='show', class='control-label, col-lg-2') Show
-              .col-lg-10
-                select.form-control(name='show', required)
-                  option(value='') Pick a show
-                  for show in shows
-                    option(value='#{show.id}') #{show.name}
+      .modal.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
+        .modal-dialog
+          .modal-content
+            form(action='/episodes/new', method='post', enctype='multipart/form-data', class='form-horizontal', role='form')
+              .modal-header
+                button(type='button', class='close', data-dismiss='modal', aria-hidden='true')×
+                h4.modal-title Upload new episode
 
-            .form-group
-              label.control-label.col-lg-2(for='season') Season
-              .col-lg-10
-                input.form-control(type='number', min='0', name='season', required)
+              .modal-body
+                .form-group
+                  label(for='show', class='control-label, col-lg-2') Show
+                  .col-lg-10
+                    select.form-control(name='show', required)
+                      option(value='') Pick a show
+                      for show in shows
+                        option(value='#{show.id}') #{show.name}
 
-            .form-group
-              label.control-label.col-lg-2(for='episode') Episode
-              .col-lg-10
-                input.form-control(type='number', min='0', name='episode', required)
+                .form-group
+                  label.control-label.col-lg-2(for='season') Season
+                  .col-lg-10
+                    input.form-control(type='number', min='0', name='season', required)
 
-            .form-group
-              label.control-label.col-lg-2(for='video') Video (.mp4 format)
-              .col-lg-10
-                input.form-control(type='file', name='video', placeholder='Episode', required)
+                .form-group
+                  label.control-label.col-lg-2(for='episode') Episode
+                  .col-lg-10
+                    input.form-control(type='number', min='0', name='episode', required)
 
-            .form-group
-              label.control-label.col-lg-2(for='subtitle') Subtitle (.srt format)
-              .col-lg-10
-                input.form-control(type='file', name='subtitle', placeholder='Episode', required)
+                .form-group
+                  label.control-label.col-lg-2(for='video') Video (.mp4 format)
+                  .col-lg-10
+                    input.form-control(type='file', name='video', placeholder='Episode', required)
 
-          .modal-footer
-            button(type='submit', class='btn btn-primary') Submit
+                .form-group
+                  label.control-label.col-lg-2(for='subtitle') Subtitle (.srt format)
+                  .col-lg-10
+                    input.form-control(type='file', name='subtitle', placeholder='Episode', required)
+
+              .modal-footer
+                button(type='submit', class='btn btn-primary') Submit
 
 
 block post-script

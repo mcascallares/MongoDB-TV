@@ -10,6 +10,7 @@ html(lang='en')
 
 
   body
+
     nav.navbar.navbar-inverse.navbar-static-top(role='navigation')
       .navbar-header
         button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
@@ -20,10 +21,8 @@ html(lang='en')
         a.navbar-brand(href='/') mongo-TV
       .collapse.navbar-collapse.navbar-ex1-collapse
         ul.nav.navbar-nav
-          li.active
-            a(href='#') About
-          li.active
-            a(href='#') Contact
+          li
+            a(href='/about') About
 
 
     .container
@@ -33,7 +32,6 @@ html(lang='en')
         p Designed and built by <a href='http://twitter.com/mcascallares' target='_blank'>@mcascallares</a>
         p <a href='https://github.com/mcascallares/mongo-tv' target='_blank'>Code</a> licensed under <a href='http://opensource.org/licenses/MIT' target='_blank'>The MIT License (MIT)</a>
 
-    block post-body
 
     script(src='/javascripts/jquery-2.0.3.min.js')
     script(src='/javascripts/bootstrap.min.js')
