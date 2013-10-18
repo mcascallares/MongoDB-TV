@@ -7,6 +7,7 @@ var config = require('../config'),
 Grid.mongo = mongoose.mongo;
 
 var chunkSize = 8 * 1024 * 1024; // 10 megs
+
 var collection = 'episodes';
 
 
@@ -59,7 +60,6 @@ exports.load = function(filename, callback) {
     var conn = mongoose.createConnection(config.mongo.uri);
     conn.once('open', function() {
         var gfs = Grid(conn.db);
-
         gfs.collection(collection).find({filename:filename}).toArray(function (err, files) {
             if (err) {
                 callback(new Error('An error occurred when retrieving video from MongoDB'));
