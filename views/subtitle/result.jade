@@ -17,6 +17,6 @@ block content
           blockquote
             p
               em "#{result.text}"
-            small Someone famous at #{result.time}
-            a(href='#{episodeUrl(result.video)}', target='_blank') episode #{result.number} of season #{result.season}
+            small Someone famous at #{result.strTime}
+            a(href='#{episodeUrl(result.video,result.seconds)}') episode #{result.number} of season #{result.season}
 

@@ -18,8 +18,9 @@ exports.rootUrl = function() {
     return config.baseUrl;
 };
 
-exports.episodeUrl = function(video) {
-    return config.baseUrl + '/episodes/' + video;
+exports.episodeUrl = function(video, seconds) {
+    var ret = config.baseUrl + '/episodes/' + video;
+    return seconds ? ret + '?s=' + seconds : ret;
 };
 
 exports.episodeRawUrl = function(video) {

@@ -22,9 +22,10 @@ exports.create = function(req, res) {
 
 exports.show = function(req, res) {
     var filename = req.params.video;
+    var seconds = req.query.s;
     episode.metadata(filename, function(err, file) {
         if (err) { next(err); }
-        res.render('episode/main', { video:filename, type: file.metadata.contentType });
+        res.render('episode/main', { video:filename, type: file.metadata.contentType , seconds: seconds});
     });
 
 };

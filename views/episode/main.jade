@@ -1,8 +1,27 @@
 extends ../layout
 
 block content
+
   h2 You bring the popcorn
-  .jumbotron.text-center
-    video#videoPlayer(class='video-js vjs-default-skin', controls, preload='auto', width='720', height='404',
-      data-setup='{"example_option":true}')
-          source(src='#{episodeRawUrl(video)}', type='#{type}')
+
+  .jumbotron
+    if seconds
+      p
+        button#quote(type='button', class='btn btn-default btn-lg')
+          span.glyphicon.glyphicon-bullhorn
+          Ok, show me the quote!
+
+    p
+      video#videoPlayer(class='video-js vjs-default-skin', controls, autoplay, preload='auto', width='720', height='404',
+        data-setup='{"example_option":true}')
+            source(src='#{episodeRawUrl(video)}', type='#{type}')
+
+block post-script
+  if seconds
+    script.
+      $(function () {
+        $('#quote').bind('click', function() {
+          var player = _V_('videoPlayer');
+          player.currentTime(#{seconds});
+        });
+      });

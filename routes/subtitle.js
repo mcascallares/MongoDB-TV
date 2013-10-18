@@ -7,9 +7,16 @@ var toStrTime = function(timestamp) {
     var date = new Date(timestamp);
     var h = date.getUTCHours();
     var m = date.getMinutes();
-    var s = date.getMilliseconds() > 500 ? date.getSeconds() + 1: date.getSeconds();
-    console.log(date.getMilliseconds());
+    var s = date.getSeconds();
     return (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+};
+
+var toSeconds = function(timestamp) {
+    var date = new Date(timestamp);
+    var h = date.getUTCHours();
+    var m = date.getMinutes();
+    var s = date.getSeconds();
+    return s + (m * 60) + (h * 3600);
 };
 
 
@@ -48,7 +55,8 @@ exports.search = function(req, res) {
                 ret.results.push({
                     score: current.score,
                     text: current.obj.text,
-                    time: toStrTime(current.obj.start),
+                    strTime: toStrTime(current.obj.start),
+                    seconds: toSeconds(current.obj.start),
                     show: s.name,
                     showId: s._id,
                     season: currentEpisode.season,
