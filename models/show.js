@@ -18,7 +18,8 @@ var showSchema = new Schema({
 });
 
 
-showSchema.index({ 'name' : 1}, { '_id' : 1}); // covered queries when retrieving show names
+showSchema.index({ 'name' : 1}, {unique: true});
+showSchema.index({ 'name' : 1, '_id' : 1}); // covered queries when retrieving show names
 showSchema.index({ 'episodes._id' : 1});
 showSchema.index({ 'episodes.created' : 1});
 

@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     mime = require('mime'),
     fs = require('fs');
 
-var chunkSize = 8 * 1024 * 1024; // 1 megs
+var chunkSize = 8 * 1024 * 1024; // 8 megs
 var collection = 'episodes';
 
 

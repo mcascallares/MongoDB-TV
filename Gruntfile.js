@@ -6,7 +6,7 @@ module.exports = function (grunt) {
         options: {
           file: 'server.js',
           watchedExtensions: ['js'],
-          ignoredFiles: ['node_modules/**', 'public/**', 'data/**'],
+          ignoredFiles: ['node_modules/**', 'public/**', 'views/**', 'data/**'],
           nodeArgs: ['--debug']
         }
       }

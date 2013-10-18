@@ -1,1 +1,20 @@
-#{show}
+extends ../layout
+
+block content
+  h2 #{show.name}
+
+  h3 Episodes
+
+  .row
+    .col-md-8.col-md-offset-2
+      table.table
+        tr
+          th Season
+          th Episode
+          th Uploaded on
+        for episode in show.episodes
+          tr
+            td #{episode.season}
+            td
+              a(href='#{episodeUrl(episode.video)}') #{episode.number}
+            td #{episode.created}
