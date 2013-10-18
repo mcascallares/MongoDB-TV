@@ -7,7 +7,8 @@ var toStrTime = function(timestamp) {
     var date = new Date(timestamp);
     var h = date.getUTCHours();
     var m = date.getMinutes();
-    var s = date.getSeconds();
+    var s = date.getMilliseconds() > 500 ? date.getSeconds() + 1: date.getSeconds();
+    console.log(date.getMilliseconds());
     return (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
 };
 
