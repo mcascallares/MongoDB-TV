@@ -57,13 +57,13 @@ showSchema.methods.addEpisode = function(season, number, videoPath, subtitlePath
     }
     var _this = this;
     var filename = this._id + '_' + season + '_' + number;
-    episode.save(videoPath, filename, function() {
+    episode.save(videoPath, filename, function(file) {
         console.log('Succesfully saved the video, adding metadata to the show');
         var newEpisode = {
-            created: new Date(),
+            created: file.uploadDate,
             season: season,
             number: number,
-            video: filename
+            video: file.filename
         };
         _this.episodes.push(newEpisode);
         _this.save(function(err, savedShow) {

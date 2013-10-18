@@ -3,26 +3,30 @@ var mongoose = require('mongoose'),
     mime = require('mime'),
     fs = require('fs');
 
-var chunkSize = 8 * 1024 * 1024; // 8 megs
+var chunkSize = 8 * 1024 * 1024; // 1 megs
 var collection = 'episodes';
 
 
 exports.save = function(path, filename, callback) {
     var gfs = Grid(mongoose.connection.db, mongoose.mongo);
-    var writestream = gfs.createWriteStream({
+    var options = {
         root: collection,
         filename: filename,
+        contentType: mime.lookup(path),
         chunkSize: chunkSize,
-        metadata: {contentType: mime.lookup(path)}, // setting in the root is not working
-    });
-    fs.createReadStream(path)
-    .on('error', function() {
+        metadata: {contentType: mime.lookup(path)} // setting in the root is not working
+    };
+    var writestream = gfs.createWriteStream(options);
+    fs.createReadStream(path).pipe(writestream);
+    writestream.on('error', function(error) {
         throw new Error('An error occured when saving the file to GridFS');
     })
-    .on('close', function() {
-        callback();
+    writestream.on('close', function(file) {
+        console.log('File saved in GridFS with the following metadata');
+        console.log(file);
+        callback(file);
     })
-    .pipe(writestream);
+
 };
 
 
