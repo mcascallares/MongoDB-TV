@@ -6,7 +6,7 @@ var config = require('../config'),
 
 Grid.mongo = mongoose.mongo;
 
-var chunkSize = 4 * 1024 * 1024; // 2 megs
+var chunkSize = 8 * 1024 * 1024; // 10 megs
 var collection = 'episodes';
 
 
