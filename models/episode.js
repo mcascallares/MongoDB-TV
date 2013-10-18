@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     mime = require('mime'),
     fs = require('fs');
 
-var chunkSize = 8 * 1024 * 1024; // 8 megs
+var chunkSize = 2 * 1024 * 1024; // 2 megs
 var collection = 'episodes';
 
 
@@ -30,11 +30,27 @@ exports.save = function(path, filename, callback) {
 };
 
 
+exports.metadata = function(filename, callback) {
+    var gfs = Grid(mongoose.connection.db, mongoose.mongo);
+    var options = {
+        root: collection,
+        filename: filename
+    };
+    gfs.collection(collection).find({filename:filename}).toArray(function (err, files) {
+        if (err) { callback(err, null); }
+
+        if (files && files.length > 0) {
+            callback(null, files[0]);
+        }
+        callback(null, null);
+    });
+};
+
+
 exports.load = function(filename, callback) {
     var gfs = Grid(mongoose.connection.db, mongoose.mongo);
     gfs.collection(collection).find({filename:filename}).toArray(function (err, files) {
         if (err) {
-            console.log(err);
             callback(new Error('An error occurred when retrieving video from MongoDB'));
         }
 

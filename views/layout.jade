@@ -7,10 +7,14 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', media='screen', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', media='screen', href='/stylesheets/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/stylesheets/video-js.css')
+    script(src='/javascripts/video.js')
+    script(type='text/javascript').
+      videojs.options.flash.swf = "#{rootUrl()}/javascripts/video-js.swf";
+
 
 
   body
-
     nav.navbar.navbar-inverse.navbar-static-top(role='navigation')
       .navbar-header
         button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
@@ -24,9 +28,7 @@ html(lang='en')
           li
             a(href='/about') About
 
-
     .container
-
       block content
 
     .footer.center-text
@@ -39,3 +41,4 @@ html(lang='en')
     script(src='/javascripts/jqBootstrapValidation.js')
     script(type='text/javascript').
       $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+

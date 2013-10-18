@@ -20,6 +20,16 @@ exports.create = function(req, res) {
 };
 
 
+exports.show = function(req, res) {
+    var filename = req.params.video;
+    episode.metadata(filename, function(err, file) {
+        if (err) { next(err); }
+        res.render('episode/main', { video:filename, type: file.metadata.contentType });
+    });
+
+};
+
+
 exports.get = function(req, res) {
     var filename = req.params.video;
     episode.load(filename, function(err, metadata, stream) {

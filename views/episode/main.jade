@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  h2 You bring the popcorn
+  .jumbotron.text-center
+    video#videoPlayer(class='video-js vjs-default-skin', controls, preload='auto', width='640', height='264',
+      data-setup='{"example_option":true}')
+          source(src='#{episodeRawUrl(video)}', type='#{type}')

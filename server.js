@@ -32,8 +32,10 @@ if ('development' === config.env) {
 
 // map urls and wire url generator in templates
 sitemap.addRoutes(app);
+app.locals.rootUrl = sitemap.rootUrl;
 app.locals.showUrl = sitemap.showUrl;
 app.locals.episodeUrl = sitemap.episodeUrl;
+app.locals.episodeRawUrl = sitemap.episodeRawUrl;
 
 http.createServer(app).listen(config.port, function(){
     console.log('Express server listening on port ' + config.port);
