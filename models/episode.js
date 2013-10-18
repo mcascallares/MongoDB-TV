@@ -3,17 +3,18 @@ var mongoose = require('mongoose'),
     mime = require('mime'),
     fs = require('fs');
 
+Grid.mongo = mongoose.mongo;
 var chunkSize = 2 * 1024 * 1024; // 2 megs
 var collection = 'episodes';
 
 
 exports.save = function(path, filename, callback) {
-    var gfs = Grid(mongoose.connection.db, mongoose.mongo);
+    var gfs = Grid(mongoose.connection.db);
     var options = {
         root: collection,
         filename: filename,
         contentType: mime.lookup(path),
-        chunkSize: chunkSize,
+        //chunkSize: chunkSize,
         metadata: {contentType: mime.lookup(path)} // setting in the root is not working
     };
     var writestream = gfs.createWriteStream(options);
@@ -31,7 +32,7 @@ exports.save = function(path, filename, callback) {
 
 
 exports.metadata = function(filename, callback) {
-    var gfs = Grid(mongoose.connection.db, mongoose.mongo);
+    var gfs = Grid(mongoose.connection.db);
     var options = {
         root: collection,
         filename: filename
@@ -48,7 +49,7 @@ exports.metadata = function(filename, callback) {
 
 
 exports.load = function(filename, callback) {
-    var gfs = Grid(mongoose.connection.db, mongoose.mongo);
+    var gfs = Grid(mongoose.connection.db);
     gfs.collection(collection).find({filename:filename}).toArray(function (err, files) {
         if (err) {
             callback(new Error('An error occurred when retrieving video from MongoDB'));

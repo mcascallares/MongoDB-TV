@@ -5,4 +5,11 @@ if ('development' === config.env) {
     mongoose.set('debug', true);
 }
 
-mongoose.connect(config.mongo.uri, {replSet: {socketOptions: {socketTimeoutMS: 200000}}});
+var options = {
+  db: { native_parser: true },
+  server: { poolSize: 10 },
+  replset: {}
+};
+
+options.server.socketOptions = options.replset.socketOptions = { keepAlive: 1 };
+mongoose.connect(config.mongo.uri, options);
