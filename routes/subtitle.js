@@ -16,6 +16,9 @@ exports.search = function(req, res) {
     Subtitle.search(req.query.q, function(err, textResults) {
         if (err) { next(err); }
 
+        console.log('----- textResults --------');
+        console.log(textResults);
+
         var episodeIds = _.map(textResults.results, function(r) {
             return r.obj.episode.toString();
         });
@@ -38,17 +41,23 @@ exports.search = function(req, res) {
             for (var i = 0; i < textResults.results.length; i++) {
                 var current = textResults.results[i];
                 var s = showsByEpisode[current.obj.episode.toString()];
+                var currentEpisode = _.find(s.episodes, function(i) {
+                    return i._id.equals(current.obj.episode);
+                });
                 ret.results.push({
                     score: current.score,
                     text: current.obj.text,
                     time: toStrTime(current.obj.start),
                     show: s.name,
                     showId: s._id,
-                    season: s.episodes[0].season,
-                    number: s.episodes[0].number,
-                    video: s.episodes[0].video,
+                    season: currentEpisode.season,
+                    number: currentEpisode.number,
+                    video: currentEpisode.video,
                 });
             }
+
+            console.log('----- rendering --------');
+            console.log(ret);
             res.render('subtitle/result', ret);
         });
     });
