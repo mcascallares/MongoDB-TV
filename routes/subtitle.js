@@ -1,6 +1,5 @@
  var Show = require('../models/show').Show,
     Subtitle = require('../models/subtitle').Subtitle,
-    sitemap = require('../sitemap'),
     _ = require('underscore');
 
 
@@ -41,12 +40,13 @@ exports.search = function(req, res) {
                 var s = showsByEpisode[current.obj.episode.toString()];
                 ret.results.push({
                     score: current.score,
+                    text: current.obj.text,
+                    time: toStrTime(current.obj.start),
                     show: s.name,
+                    showId: s._id,
                     season: s.episodes[0].season,
                     number: s.episodes[0].number,
-                    time: toStrTime(current.obj.start),
-                    text: current.obj.text,
-                    link: sitemap.episodeRawUrl(s.episodes[0].video)
+                    video: s.episodes[0].video,
                 });
             }
             res.render('subtitle/result', ret);

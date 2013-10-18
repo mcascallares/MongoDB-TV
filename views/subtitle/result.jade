@@ -10,12 +10,13 @@ block content
     for result in results
       .row
         .col-md-2.col-md-offset-2
-          p #{result.show}
+          p
+            a(href='#{showUrl(result.showId)}') #{result.show}
 
         .col-md-8
           blockquote
             p
               em "#{result.text}"
             small Someone famous at #{result.time}
-            a(href='#{result.link}', target='_blank') episode #{result.number} of season #{result.season}
+            a(href='#{episodeUrl(result.video)}', target='_blank') episode #{result.number} of season #{result.season}
 

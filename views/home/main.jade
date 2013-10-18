@@ -6,18 +6,19 @@ block content
     .jumbotron.text-center
       h3 Search for any quote
       form(action='/subtitles/search')
-        input.form-control(type='search', name='q')
+        input.form-control(type='search', name='q', required)
         button.btn.btn-default(type='submit') Search &nbsp;
           span.input-group-button.glyphicon.glyphicon-search
-
 
   .row
     .col-md-6.text-center
       h4 Latest uploaded videos
       dl.dl-horizontal
         for last in latests
-          dt #{last.name}
-          dd Season #{last.season} Episode #{last.episode} &nbsp;
+          dt
+            a(href='#{showUrl(last._id)}') #{last.name}
+          dd
+            a(href='#{episodeUrl(last.video)}', target='_blank') Season #{last.season} Episode #{last.episode} &nbsp;
             span.label.label-success New
 
     .col-md-6.text-center
@@ -25,49 +26,5 @@ block content
       a(data-toggle='modal', href='#newEpisodeDialog', class='btn btn-primary btn-lg') I have a new episode
 
 
-
-
-      .modal.fade(id='newEpisodeDialog', tabindex='-1', role='dialog', aria-hidden='true')
-        .modal-dialog
-          .modal-content
-            form(action='/episodes/new', method='post', enctype='multipart/form-data', class='form-horizontal', role='form')
-              .modal-header
-                button(type='button', class='close', data-dismiss='modal', aria-hidden='true')×
-                h4.modal-title Upload new episode
-
-              .modal-body
-                .form-group
-                  label(for='show', class='control-label, col-lg-2') Show
-                  .col-lg-10
-                    select.form-control(name='show', required)
-                      option(value='') Pick a show
-                      for show in shows
-                        option(value='#{show.id}') #{show.name}
-
-                .form-group
-                  label.control-label.col-lg-2(for='season') Season
-                  .col-lg-10
-                    input.form-control(type='number', min='0', name='season', required)
-
-                .form-group
-                  label.control-label.col-lg-2(for='episode') Episode
-                  .col-lg-10
-                    input.form-control(type='number', min='0', name='episode', required)
-
-                .form-group
-                  label.control-label.col-lg-2(for='video') Video (.mp4 format)
-                  .col-lg-10
-                    input.form-control(type='file', name='video', placeholder='Episode', required)
-
-                .form-group
-                  label.control-label.col-lg-2(for='subtitle') Subtitle (.srt format)
-                  .col-lg-10
-                    input.form-control(type='file', name='subtitle', placeholder='Episode', required)
-
-              .modal-footer
-                button(type='submit', class='btn btn-primary') Submit
-
-
-block post-script
-script(type='text/javascript').
-    $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+  //- include the upload dialog
+  include dialog.jade

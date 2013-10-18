@@ -33,7 +33,7 @@ showSchema.statics.latests = function(limit, callback) {
         { $unwind: '$episodes'},
         { $sort: {'episodes.created': -1}},
         { $limit: limit},
-        { $project: {'_id': 1, 'name': 1, 'created': '$episodes.created', 'episode': '$episodes.number', 'season': '$episodes.season'}}
+        { $project: {'_id': 1, 'name': 1, 'created': '$episodes.created', 'video': '$episodes.video', 'episode': '$episodes.number', 'season': '$episodes.season'}}
     ], callback);
 };
 

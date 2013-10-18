@@ -13,7 +13,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.limit('500mb'));
+app.use(express.limit('1024mb'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser(config.cookieSecret));
@@ -30,7 +30,10 @@ if ('development' === config.env) {
     app.use(express.errorHandler());
 }
 
+// map urls and wire url generator in templates
 sitemap.addRoutes(app);
+app.locals.showUrl = sitemap.showUrl;
+app.locals.episodeUrl = sitemap.episodeUrl;
 
 http.createServer(app).listen(config.port, function(){
     console.log('Express server listening on port ' + config.port);
