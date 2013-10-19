@@ -7,10 +7,11 @@ var config = require('../config'),
 
 exports.addRoutes = function(app) {
     app.get('/', home.show);
+    app.get('/shows', show.list);
     app.get('/shows/:show', show.get);
+    app.post('/episodes/new', episode.create);
     app.get('/episodes/:video', episode.show)
     app.get('/episodes/raw/:video', episode.get)
-    app.post('/episodes/new', episode.create);
     app.get('/subtitles/search', subtitle.search)
 };
 

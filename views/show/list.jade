@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+
+  h3 Shows
+
+  .row
+    .col-md-8.col-md-offset-2
+      table.table
+        for show in shows
+          tr
+            td
+              a(href='#{showUrl(show._id)}') #{show.name}

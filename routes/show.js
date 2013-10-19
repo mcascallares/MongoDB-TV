@@ -2,6 +2,12 @@ Show = require('../models/show').Show,
     _ = require('underscore');
 
 
+exports.list = function(req, res) {
+    Show.all('_id name', function(err, shows) {
+        res.render('show/list', { shows: shows});
+    });
+};
+
 exports.get = function(req, res) {
     var showId = req.params.show;
     Show.findById(showId, function(err, show) {
@@ -9,7 +15,6 @@ exports.get = function(req, res) {
         show.episodes = _.sortBy(show.episodes, function(i) {
             return i.season + ',' + i.number;
         });
-        console.log(show);
         res.render('show/main', { show: show});
     });
 };

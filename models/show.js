@@ -24,8 +24,8 @@ showSchema.index({ 'episodes._id' : 1});
 showSchema.index({ 'episodes.created' : 1});
 
 
-showSchema.statics.listNames = function(callback) {
-    this.find({}, '_id name').sort('name').exec(callback);
+showSchema.statics.all = function(projection, callback) {
+    this.find({}, projection).sort('name').exec(callback);
 };
 
 
