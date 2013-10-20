@@ -8,5 +8,16 @@ config.cookieSecret = 'lsdkdslkjdsklsjfoee239-092fewjwefkmf';
 
 //mongo database
 config.mongo = {
-    uri: 'mongodb://localhost/mongodb-tv'
+    uri: 'mongodb://localhost/mongodb-tv',
+    options: {
+        db: { native_parser: true },
+        server: {
+            poolSize: 32,
+            socketOptions: { keepAlive: 1}
+        },
+
+        replset: {
+          socketOptions: { keepAlive: 1}
+        }
+    }
 };

@@ -12,7 +12,7 @@ var collection = 'episodes';
 
 
 exports.save = function(path, filename, callback) {
-    var conn = mongoose.createConnection(config.mongo.uri);
+    var conn = mongoose.createConnection(config.mongo.uri, config.mongo.options);
     conn.once('open', function() {
         var gfs = Grid(conn.db);
         var options = {
