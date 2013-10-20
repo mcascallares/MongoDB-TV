@@ -1,12 +1,14 @@
 var config = require('../config'),
+    about = require('../routes/about'),
+    home = require('../routes/home'),
     show = require('../routes/show'),
     subtitle = require('../routes/subtitle'),
-    home = require('../routes/home'),
     episode = require('../routes/episode');
 
 
 exports.addRoutes = function(app) {
     app.get('/', home.show);
+    app.get('/about', about.show);
     app.get('/shows', show.list);
     app.get('/shows/:show', show.get);
     app.post('/episodes/new', episode.create);
