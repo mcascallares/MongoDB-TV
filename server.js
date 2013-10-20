@@ -5,7 +5,6 @@ var config = require('./config'),
     http = require('http'),
     path = require('path');
 
-http.globalAgent.maxSockets = 20;
 
 var app = express();
 

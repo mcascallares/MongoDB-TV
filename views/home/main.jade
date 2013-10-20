@@ -6,8 +6,6 @@ block content
     .col-md-8.col-md-offset-2
       .jumbotron.text-center(style='padding: 15px;')
         h3 Search for any quote
-
-
           form(action='/subtitles/search')
             input.form-control(type='search', name='q', size='30', required)
             button.btn.btn-default(type='submit') Search &nbsp;
@@ -32,3 +30,8 @@ block content
 
   //- include the upload dialog
   include dialog.jade
+
+  block post-script
+    script(type='text/javascript').x
+      $(function () { console.log($("input,select,textarea").not("[type=submit]")); $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+

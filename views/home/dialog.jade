@@ -10,7 +10,7 @@
           .form-group
             label(for='show', class='control-label, col-lg-2') Show
             .col-lg-10
-              select.form-control(name='show', required)
+              select.form-control(name='show', required, aria-required)
                 option(value='') Pick a show
                 for show in shows
                   option(value='#{show.id}') #{show.name}
