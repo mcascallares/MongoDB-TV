@@ -3,7 +3,7 @@ extends ../layout
 block content
 
   .row
-    .jumbotron.text-center
+    .jumbotron.text-center(style='padding: 10px;')
       h3 Search for any quote
       form(action='/subtitles/search')
         input.form-control(type='search', name='q', required)
@@ -12,14 +12,15 @@ block content
 
   .row
     .col-md-6.text-center
-      h4 Latest uploaded videos
+      h4 Latest uploaded videos &nbsp;
+        span.label.label-success New
       dl.dl-horizontal
         for last in latests
           dt
             a(href='#{showUrl(last._id)}') #{last.name}
           dd
-            a(href='#{episodeUrl(last.video)}') Season #{last.season} Episode #{last.episode} &nbsp;
-            span.label.label-success New
+            a(href='#{episodeUrl(last.video)}') Season #{last.season} Episode #{last.episode}
+
 
     .col-md-6.text-center
       h4 Upload
