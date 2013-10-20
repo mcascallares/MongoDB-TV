@@ -32,6 +32,6 @@ block content
   include dialog.jade
 
   block post-script
-    script(type='text/javascript').x
+    script(type='text/javascript').
       $(function () { console.log($("input,select,textarea").not("[type=submit]")); $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
 
