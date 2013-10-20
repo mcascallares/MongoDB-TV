@@ -39,5 +39,5 @@ app.locals.episodeUrl = sitemap.episodeUrl;
 app.locals.episodeRawUrl = sitemap.episodeRawUrl;
 
 http.createServer(app).listen(config.port, function(){
-    console.log('Express server listening on port ' + config.port);
+    console.log('MongoDB-TV server listening on port ' + config.port);
 });
