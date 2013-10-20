@@ -3,12 +3,15 @@ extends ../layout
 block content
 
   .row
-    .jumbotron.text-center(style='padding: 10px;')
-      h3 Search for any quote
-      form(action='/subtitles/search')
-        input.form-control(type='search', name='q', required)
-        button.btn.btn-default(type='submit') Search &nbsp;
-          span.input-group-button.glyphicon.glyphicon-search
+    .col-md-8.col-md-offset-2
+      .jumbotron.text-center(style='padding: 15px;')
+        h3 Search for any quote
+
+
+          form(action='/subtitles/search')
+            input.form-control(type='search', name='q', size='30', required)
+            button.btn.btn-default(type='submit') Search &nbsp;
+              span.input-group-button.glyphicon.glyphicon-search
 
   .row
     .col-md-6.text-center
