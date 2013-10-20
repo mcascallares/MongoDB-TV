@@ -49,20 +49,22 @@ exports.search = function(req, res) {
             for (var i = 0; i < textResults.results.length; i++) {
                 var current = textResults.results[i];
                 var s = showsByEpisode[current.obj.episode.toString()];
-                var currentEpisode = _.find(s.episodes, function(i) {
-                    return i._id.equals(current.obj.episode);
-                });
-                ret.results.push({
-                    score: current.score,
-                    text: current.obj.text,
-                    strTime: toStrTime(current.obj.start),
-                    seconds: toSeconds(current.obj.start),
-                    show: s.name,
-                    showId: s._id,
-                    season: currentEpisode.season,
-                    number: currentEpisode.number,
-                    video: currentEpisode.video,
-                });
+                if (s) {
+                    var currentEpisode = _.find(s.episodes, function(i) {
+                        return i._id.equals(current.obj.episode);
+                    });
+                    ret.results.push({
+                        score: current.score,
+                        text: current.obj.text,
+                        strTime: toStrTime(current.obj.start),
+                        seconds: toSeconds(current.obj.start),
+                        show: s.name,
+                        showId: s._id,
+                        season: currentEpisode.season,
+                        number: currentEpisode.number,
+                        video: currentEpisode.video,
+                    });
+                }
             }
 
             console.log('----- rendering --------');
