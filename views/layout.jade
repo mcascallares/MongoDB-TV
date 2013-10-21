@@ -29,12 +29,15 @@ html(lang='en')
           li
             a(href='/about') About
 
-    .container
+    .container(style='min-height:450px;')
       block content
 
     .footer
-      p Designed and built by <a href='http://twitter.com/mcascallares' target='_blank'>@mcascallares</a>
-      p <a href='https://github.com/mcascallares/mongo-tv' target='_blank'>Code</a> licensed under <a href='http://opensource.org/licenses/MIT' target='_blank'>The MIT License (MIT)</a>
+      .col-md-6.text-center
+        p Designed and built by <a href='http://twitter.com/mcascallares' target='_blank'>@mcascallares</a>
+        p <a href='https://github.com/mcascallares/mongo-tv' target='_blank'>Code</a> licensed under <a href='http://opensource.org/licenses/MIT' target='_blank'>The MIT License (MIT)</a>
+      .col-md-6.text-center
+        img(src='/images/Powered_by_MongoDB_5.png')
 
 
     script(src='/javascripts/bootstrap.min.js')
