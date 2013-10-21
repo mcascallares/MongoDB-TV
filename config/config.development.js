@@ -8,7 +8,7 @@ config.cookieSecret = 'lsdkdslkjdsklsjfoee239-092fewjwefkmf';
 
 //mongo database
 config.mongo = {
-    uri: 'mongodb://localhost/mongodb-tv',
+    uri: 'mongodb://127.0.0.1/mongodb-tv',
     options: {
         db: { native_parser: true },
         server: {
