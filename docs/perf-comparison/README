@@ -1,0 +1,14 @@
+Benchmark done with ab tool trigerring GET requests to the video resource:
+
+    ab -c <concurrency> -n <number_requests> <resource>
+
+
+    GridFS:
+        ab -c2 -n10  http://matias-mongo.local:3000/episodes/raw/5260e7fc6fab18a2ec88f128_5_2
+
+    FS:
+        ab -c2 -n10  -k http://matias-mongo.local:3000/MongoTV/BB/Season5/Breaking.Bad.S05E02.Madrigal.HDTV.x264-FQM.mp4
+
+
+#TODO
+    increment rlimit
