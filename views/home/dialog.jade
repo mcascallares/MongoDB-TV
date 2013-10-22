@@ -7,8 +7,15 @@
           h4.modal-title Upload new episode
 
         .modal-body
+
+          if messages.errors
+            .alert.alert-danger
+              ul
+              for error in messages.errors
+                li #{error}
+
           .form-group
-            label(for='show', class='control-label, col-lg-2') Show
+            label(for='show', class='control-label, col-lg-2') Show (*)
             .col-lg-10
               select.form-control(name='show', required, aria-required)
                 option(value='') Pick a show
@@ -16,24 +23,35 @@
                   option(value='#{show.id}') #{show.name}
 
           .form-group
-            label.control-label.col-lg-2(for='season') Season
+            label.control-label.col-lg-2(for='season') Season (*)
             .col-lg-10
               input.form-control(type='number', min='0', name='season', required)
 
           .form-group
-            label.control-label.col-lg-2(for='episode') Episode
+            label.control-label.col-lg-2(for='episode') Episode (*)
             .col-lg-10
               input.form-control(type='number', min='0', name='episode', required)
 
           .form-group
-            label.control-label.col-lg-2(for='video') Video
+            label.control-label.col-lg-2(for='video') Video (*)
             .col-lg-10
               input.form-control(type='file', name='video', placeholder='Episode', required)
 
           .form-group
-            label.control-label.col-lg-2(for='subtitle') Subtitle (.srt)
+            label.control-label.col-lg-2(for='subtitle') SRT Subtitle (*)
             .col-lg-10
               input.form-control(type='file', name='subtitle', placeholder='Episode', required)
 
         .modal-footer
           button(type='submit', class='btn btn-primary') Upload
+
+
+
+  block post-script
+    if (messages.errors)
+      script(type='text/javascript').
+        $(function() {
+          $('#newEpisodeDialog').modal();
+        });
+
+

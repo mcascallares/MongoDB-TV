@@ -11,7 +11,7 @@ exports.addRoutes = function(app) {
     app.get('/about', about.show);
     app.get('/shows', show.list);
     app.get('/shows/:show', show.get);
-    app.post('/episodes/new', episode.create);
+    app.post('/episodes/new', episode.createValidator, episode.create);
     app.get('/episodes/:video', episode.show)
     app.get('/episodes/raw/:video', episode.get)
     app.get('/subtitles/search', subtitle.search)

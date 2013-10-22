@@ -14,7 +14,9 @@
     "srt": "0.0.3",
     "jschardet": "~1.1.0",
     "iconv-lite": "~0.2.11",
-    "mime": "~1.2.11"
+    "mime": "~1.2.11",
+    "express-form": "~0.8.1",
+    "express-flash": "git://github.com/RGBboy/express-flash.git"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

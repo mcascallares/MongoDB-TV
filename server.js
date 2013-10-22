@@ -2,6 +2,7 @@ var config = require('./config'),
     db = require('./db'),
     sitemap = require('./sitemap')
     express = require('express'),
+    flash = require('express-flash'),
     http = require('http'),
     path = require('path');
 
@@ -22,6 +23,7 @@ app.use(express.session({
     secret: config.cookieSecret,
     maxAge: new Date(Date.now() + 3600000)
 }));
+app.use(flash());
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));

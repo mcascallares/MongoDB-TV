@@ -1,23 +1,37 @@
 var Show = require('../models/show').Show,
     episode = require('../models/episode'),
+    form = require("express-form"),
     _ = require('underscore');
 
 
 exports.create = function(req, res) {
-    Show.findById(req.body.show, function(err, show) {
-        var season = req.body.season;
-        var episode = req.body.episode;
-        var videoPath = req.files.video.path;
-        var subtitlePath = req.files.subtitle.path;
-        show.addEpisode(season, episode, videoPath, subtitlePath, function(show) {
-            if (!err) {
-                res.redirect('/');
-            } else {
-                res.send(err);
-            }
+    if (req.form.isValid) {
+        Show.findById(req.body.show, function(err, show) {
+            var season = req.body.season;
+            var episode = req.body.episode;
+            var videoPath = req.files.video.path;
+            var subtitlePath = req.files.subtitle.path;
+            show.addEpisode(season, episode, videoPath, subtitlePath, function(show) {
+                if (!err) {
+                    res.redirect('/');
+                } else {
+                    res.send(err);
+                }
+            });
         });
-    });
+    } else {
+        req.flash('errors', req.form.errors);
+        res.redirect('/')
+    }
 };
+
+
+exports.createValidator = form(
+    form.filter('season').trim().required(),
+    form.filter('episode').trim().required(),
+    form.filter('video').required(),
+    form.filter('subtitle').required()
+);
 
 
 exports.show = function(req, res) {

@@ -27,13 +27,8 @@ block content
 
     .col-md-6.text-center
       h4 Upload
-      a(data-toggle='modal', href='#newEpisodeDialog', class='btn btn-primary btn-lg') I have a new episode
+      a(data-toggle='modal', href='#newEpisodeDialog', class='btn btn-primary btn-lg') I have a new video
 
 
   //- include the upload dialog
   include dialog.jade
-
-  block post-script
-    script(type='text/javascript').
-      $(function () { console.log($("input,select,textarea").not("[type=submit]")); $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
-
