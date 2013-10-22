@@ -115,6 +115,14 @@ subtitleSchema.index({text : 'text'});
 					</section>
 
 					<section>
+						<h2>Enable text search</h2>
+						<p>Text search is not enabled by default in 2.4.x, you have to force it</p>
+						<pre><code data-trim contenteditable>
+mongod --dbpath data --setParameter textSearchEnabled=true --fork
+						</code></pre>
+					</section>
+
+					<section>
 						<h2>GridFS chunk size</h2>
 						<ul>
 							<li>256K by default: 300 MB file -> 1200 docs</li>
