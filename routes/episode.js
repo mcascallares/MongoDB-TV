@@ -27,10 +27,11 @@ exports.create = function(req, res) {
 
 
 exports.createValidator = form(
-    form.filter('season').trim().required(),
-    form.filter('episode').trim().required(),
-    form.filter('video').required(),
-    form.filter('subtitle').required()
+    form.validate('show', 'Show').trim().required('You must specify a show').isInt('Season should be a number'),
+    form.validate('season', 'Season').trim().required('You must specify a season').isInt('Season should be a number'),
+    form.validate('episode', 'Episode').trim().required('You must specify an episode').isInt('Episode should be a number'),
+    form.validate('video', 'Video').required('You must specify a video'),
+    form.validate('subtitle', 'Subtitle').required('You must specify a subtitle')
 );
 
 
