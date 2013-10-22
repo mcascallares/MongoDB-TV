@@ -48,7 +48,7 @@
 					<h2>The Idea</h2>
 					<ul>
 						<li>A nodejs web application</li>
-						<li>Store any video/show into MongoDB using GridFS</li>
+						<li>Store any video into MongoDB using GridFS</li>
 						<li>Stream them to the browser</li>
 						<li>Store subtitles to be able to search into them using Full Text Search</li>
 				</section>
@@ -84,14 +84,14 @@ var show = {
 					</section>
 
 					<section>
-						<h2>Show and episode metadata</h2>
+						<h2>Subtitle metadata</h2>
 						<pre><code data-trim contenteditable>
 var subtitle = {
     _id: ObjectId('12abdf2233'),
     episode: ObjectId('7834634dca45'), // refers video in show.episode._id
     start: 1234,
     end: 1250,
-    text: 'A replica set in MongoDB is a group of mongod processes that maintain the same data set.'
+    text: 'A replica set in MongoDB is a group of mongod processes...'
 };
 
 subtitleSchema.index({text : 'text'});
