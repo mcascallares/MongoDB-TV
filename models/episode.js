@@ -28,7 +28,6 @@ exports.save = function(path, filename, callback) {
             throw new Error('An error occured when saving the file to GridFS');
         })
         writestream.on('close', function(file) {
-            conn.close();
             console.log('File saved in GridFS with the following metadata');
             console.log(file);
             callback(file);
@@ -49,7 +48,6 @@ exports.metadata = function(filename, callback) {
         };
         gfs.collection(collection).find({filename:filename}).toArray(function (err, files) {
             if (err) { callback(err, null); }
-            conn.close();
             if (files && files.length > 0) {
                 callback(null, files[0]);
             }
@@ -67,7 +65,6 @@ exports.load = function(filename, callback) {
             if (err) {
                 callback(new Error('An error occurred when retrieving video from MongoDB'));
             }
-            conn.close();
             if (files && files.length > 0) {
                 var metadata = files[0];
                 var options = {
