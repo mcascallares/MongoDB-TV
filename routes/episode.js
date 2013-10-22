@@ -5,10 +5,22 @@ var Show = require('../models/show').Show,
 
 
 exports.create = function(req, res) {
-    if (req.form.isValid) {
+    var handleErrors = function(errors) {
+        req.flash('errors', errors);
+        res.redirect('/')
+    };
+
+    // validator does not work with file input :(
+    var errors = [];
+    var video = req.files.video, subtitle = req.files.subtitle;
+    if (!video || video.name === '') { errors.push('You should specify a video'); };
+    if (!subtitle || subtitle.name === '') { errors.push('You should specify a subtitle'); };
+
+    if (errors.length == 0 && req.form.isValid) {
         Show.findById(req.body.show, function(err, show) {
             var season = req.body.season;
             var episode = req.body.episode;
+
             var videoPath = req.files.video.path;
             var subtitlePath = req.files.subtitle.path;
             show.addEpisode(season, episode, videoPath, subtitlePath, function(show) {
@@ -20,18 +32,15 @@ exports.create = function(req, res) {
             });
         });
     } else {
-        req.flash('errors', req.form.errors);
-        res.redirect('/')
+        handleErrors(errors.concat(req.form.errors));
     }
 };
 
 
 exports.createValidator = form(
-    form.validate('show', 'Show').trim().required('You must specify a show').isInt('Season should be a number'),
-    form.validate('season', 'Season').trim().required('You must specify a season').isInt('Season should be a number'),
-    form.validate('episode', 'Episode').trim().required('You must specify an episode').isInt('Episode should be a number'),
-    form.validate('video', 'Video').required('You must specify a video'),
-    form.validate('subtitle', 'Subtitle').required('You must specify a subtitle')
+    form.validate('show', 'Show').trim().required(),
+    form.validate('season', 'Season').trim().required().isInt(),
+    form.validate('episode', 'Episode').trim().required().isInt()
 );
 
 
