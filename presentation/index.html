@@ -68,7 +68,7 @@
 						<pre><code data-trim contenteditable>
 var show = {
     _id: ObjectId('abcdef1233');
-    name: "Breaking Bad",
+    name: "M102 for DBAs",
     episodes: [
         {
             _id: ObjetId('7834634dca45'), // id in nested doc to link it
@@ -91,7 +91,7 @@ var subtitle = {
     episode: ObjectId('7834634dca45'), // refers video in show.episode._id
     start: 1234,
     end: 1250,
-    text: 'I am the one who knocks!'
+    text: 'A replica set in MongoDB is a group of mongod processes that maintain the same data set.'
 };
 
 subtitleSchema.index({text : 'text'});
