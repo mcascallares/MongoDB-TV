@@ -23,11 +23,11 @@ exports.create = function(req, res) {
 
             var videoPath = req.files.video.path;
             var subtitlePath = req.files.subtitle.path;
-            show.addEpisode(season, episode, videoPath, subtitlePath, function(show) {
-                if (!err) {
+            show.addEpisode(season, episode, videoPath, subtitlePath, function(errAdd, show) {
+                if (!errAdd) {
                     res.redirect('/');
                 } else {
-                    res.send(err);
+                    handleErrors(errAdd.message);
                 }
             });
         });

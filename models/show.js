@@ -54,11 +54,15 @@ showSchema.methods.getEpisode = function(season, number) {
 
 showSchema.methods.addEpisode = function(season, number, videoPath, subtitlePath, callback) {
     if (this.getEpisode(season, number)) {
-        throw new Error('That episode is already in the system');
+        callback(new Error('That episode is already in the system'), null);
+        return;
     }
     var _this = this;
     var filename = this._id + '_' + season + '_' + number;
-    episode.save(videoPath, filename, function(file) {
+    episode.save(videoPath, filename, function(errEpisode, file) {
+        if (errEpisode) {
+            callback(errEpisode, null);
+        }
         console.log('Succesfully saved the video, adding metadata to the show');
         var newEpisode = {
             created: file.uploadDate,
@@ -67,9 +71,9 @@ showSchema.methods.addEpisode = function(season, number, videoPath, subtitlePath
             video: file.filename
         };
         _this.episodes.push(newEpisode);
-        _this.save(function(err, savedShow) {
-            if (err) {
-                throw new Error('An error occurred when saving show metadata');
+        _this.save(function(errShow, savedShow) {
+            if (errShow) {
+                callback(errShow, null);
             }
 
             console.log('Succesfully saved show metadata, adding subtitle');
@@ -80,11 +84,12 @@ showSchema.methods.addEpisode = function(season, number, videoPath, subtitlePath
                 return _.extend({ episode: inserted._id, video: filename}, t)
             });
 
-            Subtitle.create(toInsert, function(err) {
-                if (err) {
-                    throw new Error('An error occurred when saving the subtitle');
+            Subtitle.create(toInsert, function(errSubtitle) {
+                if (errSubtitle) {
+                    callback(Error('An error occurred when saving the subtitle'), null);
+                } else {
+                    callback(null, savedShow);
                 }
-                callback(savedShow);
             });
         });
     });

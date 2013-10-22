@@ -25,16 +25,14 @@ exports.save = function(path, filename, callback) {
         var writestream = gfs.createWriteStream(options);
         fs.createReadStream(path).pipe(writestream);
         writestream.on('error', function(error) {
-            throw new Error('An error occured when saving the file to GridFS');
+            callback(new Error('An error occured when saving the file to GridFS'), null);
         })
         writestream.on('close', function(file) {
             console.log('File saved in GridFS with the following metadata');
             console.log(file);
-            callback(file);
-
+            callback(null, file);
         })
     });
-
 };
 
 
