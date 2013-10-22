@@ -13,7 +13,7 @@ exports.get = function(req, res) {
     Show.findById(showId, function(err, show) {
         if (err) { next(err); }
         show.episodes = _.sortBy(show.episodes, function(i) {
-            return i.season + ',' + i.number;
+            return (i.season * 1000) + i.number; // hack to do a sorting by multiple numerical keys
         });
         res.render('show/main', { show: show});
     });
