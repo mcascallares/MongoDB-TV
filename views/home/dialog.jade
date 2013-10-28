@@ -25,26 +25,25 @@
           .form-group
             label.control-label.col-lg-2(for='season') Season (*)
             .col-lg-10
-              input.form-control(type='number', min='0', name='season', required)
+              input.form-control(type='number', min='0', name='season',autocomplete='off', required)
 
           .form-group
             label.control-label.col-lg-2(for='episode') Episode (*)
             .col-lg-10
-              input.form-control(type='number', min='0', name='episode', required)
+              input.form-control(type='number', min='0', name='episode',autocomplete='off', required)
 
           .form-group
             label.control-label.col-lg-2(for='video') Video (*)
             .col-lg-10
-              input.form-control(type='file', name='video', placeholder='Episode', required)
+              input.form-control(type='file', name='video', placeholder='Episode',autocomplete='off', required)
 
           .form-group
             label.control-label.col-lg-2(for='subtitle') SRT Subtitle (*)
             .col-lg-10
-              input.form-control(type='file', name='subtitle', placeholder='Episode', required)
+              input.form-control(type='file', name='subtitle', placeholder='Episode',autocomplete='off', required)
 
         .modal-footer
           button(type='submit', class='btn btn-primary') Upload
-
 
 
   block post-script
