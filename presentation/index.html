@@ -46,7 +46,7 @@
 
 				<section>
 					<section>
-						<h2>GridFS Overview</h2>
+						<h2>A GridFS overview</h2>
 						<p>
 							Specification to store files inside MongoDB
 						</p>
@@ -65,37 +65,66 @@
 					<section>
 						<h2>fs.files</h2>
 						<pre><code data-trim contenteditable>
-
 var file = {
 	_id : ObjectId("52669591c3d732d92d000002"),
-	filename : "52668b8924319b2524ed86ab_1_1",
+	filename : "myFile.mov",
 	contentType : "binary/octet-stream",
 	length : 160722190,
 	chunkSize : 8388608,
 	uploadDate : ISODate("2013-10-22T15:11:22.138Z"),
 	aliases : null,
-	metadata : {
-		contentType : "video/quicktime"
-	},
+	metadata : {},
 	md5 : "85217913f05c231b1eac9e1c1492971f"
 }
-
 						</code></pre>
 					</section>
+
 
 					<section>
 						<h2>fs.chunks</h2>
 						<pre><code data-trim contenteditable>
-
-var file = {
+var chunk = {
 	_id : ObjectId("52669591c3d732d92d000003"),
 	n:0,
 	files_id: ObjectId("52669591c3d732d92d000002"),
 	data: '' //binary
 }
-
 						</code></pre>
 					</section>
+
+
+					<section>
+						<pre><code data-trim contenteditable>
+var file = {
+	_id : ObjectId("52669591c3d732d92d000002"),
+	filename : "myFile.mov",
+	contentType : "binary/octet-stream",
+	length : 160722190,
+	chunkSize : 8388608,
+	uploadDate : ISODate("2013-10-22T15:11:22.138Z"),
+	aliases : null,
+	metadata : {},
+	md5 : "85217913f05c231b1eac9e1c1492971f"
+};
+						</code></pre>
+						<pre><code data-trim contenteditable>
+var chunk0 = {
+	_id : ObjectId("52669591c3d732d92d000003"),
+	n:0,
+	files_id: ObjectId("52669591c3d732d92d000002"),
+	data: '' //binary
+};
+var chunk1 = {
+	_id : ObjectId("52669591c3d732d92d000004"),
+	n:1,
+	files_id: ObjectId("52669591c3d732d92d000002"),
+	data: '' //binary
+};
+
+						</code></pre>
+
+					</section>
+
 				</section>
 
 
