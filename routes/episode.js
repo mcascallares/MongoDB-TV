@@ -49,7 +49,6 @@ exports.show = function(req, res) {
     var secondsStr = req.query.s;
     episode.metadata(filename, function(err, file) {
         if (err) { next(err); }
-        console.log(secondsStr);
         var ctx = {
             video:filename,
             type: file.metadata.contentType
@@ -57,7 +56,6 @@ exports.show = function(req, res) {
         if (secondsStr) {
             ctx["secondsToSeek"] = parseInt(secondsStr, 10);
         }
-        console.log(ctx);
         res.render('episode/main', ctx);
 
     });

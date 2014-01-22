@@ -15,10 +15,6 @@ var toStrTime = function(totalMilliSeconds) {
 exports.search = function(req, res) {
     Subtitle.search(req.query.q, function(err, textResults) {
         if (err) { next(err); }
-
-        //console.log('----- textResults --------');
-        //console.log(textResults);
-
         var episodeIds = _.map(textResults.results, function(r) {
             return r.obj.episode.toString();
         });
@@ -33,9 +29,6 @@ exports.search = function(req, res) {
                     showsByEpisode[currentEpisode._id.toString()] = currentShow;
                 }
             }
-
-            //console.log('----- cache --------');
-           // console.log(showsByEpisode);
 
             var ret = { stats: textResults.stats, results: [] };
             for (var i = 0; i < textResults.results.length; i++) {
@@ -58,8 +51,6 @@ exports.search = function(req, res) {
                     });
                 }
             }
-
-            console.log('----- rendering --------');
 
             console.log(ret);
             res.render('subtitle/result', ret);
