@@ -38,6 +38,7 @@ db.once('open', function callback () {
 
     // map URLs
     var sitemap = require('./sitemap');
+    sitemap.addRoutes(app);
 
     // wire url generator in templates
     app.locals.rootUrl = sitemap.rootUrl;
@@ -45,7 +46,7 @@ db.once('open', function callback () {
     app.locals.episodeUrl = sitemap.episodeUrl;
     app.locals.episodeRawUrl = sitemap.episodeRawUrl;
 
-    // start listening
+    // start the server
     http.createServer(app).listen(config.port, function(){
         console.log('MongoDB-TV server listening on port ' + config.port);
     });
