@@ -3,20 +3,12 @@
     _ = require('underscore');
 
 
-var toStrTime = function(timestamp) {
-    var date = new Date(timestamp);
-    var h = date.getUTCHours();
-    var m = date.getMinutes();
-    var s = date.getSeconds();
-    return (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
-};
-
-var toSeconds = function(timestamp) {
-    var date = new Date(timestamp);
-    var h = date.getUTCHours();
-    var m = date.getMinutes();
-    var s = date.getSeconds();
-    return s + (m * 60) + (h * 3600);
+var toStrTime = function(totalMilliSeconds) {
+    var totalSeconds = totalMilliSeconds / 1000;
+    var hours = parseInt(totalSeconds / 3600, 10) % 24;
+    var minutes = parseInt(totalSeconds / 60, 10) % 60;
+    seconds = parseInt(totalSeconds % 60, 10);
+    return (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 };
 
 
@@ -24,8 +16,8 @@ exports.search = function(req, res) {
     Subtitle.search(req.query.q, function(err, textResults) {
         if (err) { next(err); }
 
-        console.log('----- textResults --------');
-        console.log(textResults);
+        //console.log('----- textResults --------');
+        //console.log(textResults);
 
         var episodeIds = _.map(textResults.results, function(r) {
             return r.obj.episode.toString();
@@ -42,8 +34,8 @@ exports.search = function(req, res) {
                 }
             }
 
-            console.log('----- cache --------');
-            console.log(showsByEpisode);
+            //console.log('----- cache --------');
+           // console.log(showsByEpisode);
 
             var ret = { stats: textResults.stats, results: [] };
             for (var i = 0; i < textResults.results.length; i++) {
@@ -57,7 +49,7 @@ exports.search = function(req, res) {
                         score: current.score,
                         text: current.obj.text,
                         strTime: toStrTime(current.obj.start),
-                        seconds: toSeconds(current.obj.start),
+                        seconds: parseInt(current.obj.start/1000),
                         show: s.name,
                         showId: s._id,
                         season: currentEpisode.season,
@@ -68,6 +60,7 @@ exports.search = function(req, res) {
             }
 
             console.log('----- rendering --------');
+
             console.log(ret);
             res.render('subtitle/result', ret);
         });

@@ -45,11 +45,15 @@ exports.metadata = function(filename, callback) {
             filename: filename
         };
         gfs.collection(collection).find({filename:filename}).toArray(function (err, files) {
-            if (err) { callback(err, null); }
+            if (err) {
+                callback(err, null);
+                return;
+            }
             if (files && files.length > 0) {
                 callback(null, files[0]);
+            } else {
+                callback(null, null);
             }
-            callback(null, null);
         });
     });
 };

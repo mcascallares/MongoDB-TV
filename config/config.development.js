@@ -12,7 +12,7 @@ config.mongo = {
     options: {
         db: { native_parser: true },
         server: {
-            poolSize: 2,
+            poolSize: 1,
             socketOptions: { keepAlive: 1}
         },
 

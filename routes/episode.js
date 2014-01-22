@@ -46,12 +46,21 @@ exports.createValidator = form(
 
 exports.show = function(req, res) {
     var filename = req.params.video;
-    var seconds = req.query.s;
+    var secondsStr = req.query.s;
     episode.metadata(filename, function(err, file) {
         if (err) { next(err); }
-        res.render('episode/main', { video:filename, type: file.metadata.contentType , seconds: seconds});
-    });
+        console.log(secondsStr);
+        var ctx = {
+            video:filename,
+            type: file.metadata.contentType
+        };
+        if (secondsStr) {
+            ctx["secondsToSeek"] = parseInt(secondsStr, 10);
+        }
+        console.log(ctx);
+        res.render('episode/main', ctx);
 
+    });
 };
 
 

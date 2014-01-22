@@ -5,7 +5,7 @@ block content
   h2 Episode
 
   .jumbotron
-    if seconds
+    if secondsToSeek
       p
         button#quote(type='button', class='btn btn-default btn-lg')
           span.glyphicon.glyphicon-bullhorn
@@ -17,11 +17,11 @@ block content
             source(src='#{episodeRawUrl(video)}', type='#{type}')
 
 block post-script
-  if seconds
+  if secondsToSeek
     script.
       $(function () {
         $('#quote').bind('click', function() {
           var player = _V_('videoPlayer');
-          player.currentTime(#{seconds});
+          player.currentTime(#{secondsToSeek});
         });
       });
