@@ -6,3 +6,5 @@ if ('development' === config.env) {
 }
 
 mongoose.connect(config.mongo.uri, config.mongo.options);
+
+module.exports.mongoose = mongoose;

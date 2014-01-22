@@ -1,11 +1,9 @@
 var config = require('./config'),
     db = require('./db'),
-    sitemap = require('./sitemap')
     express = require('express'),
     flash = require('express-flash'),
     http = require('http'),
     path = require('path');
-
 
 var app = express();
 
@@ -33,13 +31,23 @@ if ('development' === config.env) {
     app.use(express.errorHandler());
 }
 
-// map urls and wire url generator in templates
-sitemap.addRoutes(app);
-app.locals.rootUrl = sitemap.rootUrl;
-app.locals.showUrl = sitemap.showUrl;
-app.locals.episodeUrl = sitemap.episodeUrl;
-app.locals.episodeRawUrl = sitemap.episodeRawUrl;
+var db = db.mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    console.log('Database connection pool stablished!');
 
-http.createServer(app).listen(config.port, function(){
-    console.log('MongoDB-TV server listening on port ' + config.port);
+    // map URLs
+    var sitemap = require('./sitemap');
+
+    // wire url generator in templates
+    app.locals.rootUrl = sitemap.rootUrl;
+    app.locals.showUrl = sitemap.showUrl;
+    app.locals.episodeUrl = sitemap.episodeUrl;
+    app.locals.episodeRawUrl = sitemap.episodeRawUrl;
+
+    // start listening
+    http.createServer(app).listen(config.port, function(){
+        console.log('MongoDB-TV server listening on port ' + config.port);
+    });
 });
+
